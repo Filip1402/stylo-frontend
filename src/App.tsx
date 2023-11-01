@@ -1,9 +1,17 @@
+import { Route, Routes } from "react-router";
 import "./App.css";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import Homepage from "./Pages/Homepage";
 
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </>
   );
 }
