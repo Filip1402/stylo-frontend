@@ -1,17 +1,5 @@
-import Button from "../Components/atoms/Button";
-
 const Homepage = () => {
-  return (
-    <div>
-      <Button
-        onClick={() => {
-          console.log("Test");
-        }}
-      >
-        Tekst gumba
-      </Button>
-    </div>
-  );
+  return <div>homepage</div>;
 };
 
 export default Homepage;
