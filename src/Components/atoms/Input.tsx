@@ -43,7 +43,7 @@ const Input: FC<InputProps> = ({
         <input
           className={inputClasses}
           type={inputType}
-          id={label}
+          id={name}
           value={value}
           name={name}
           placeholder={placeholder}
@@ -64,7 +64,7 @@ const Input: FC<InputProps> = ({
 
       {error && (
         <p className=" text-red-500 font-medium text-center md:text-left rounded-md px-4">
-          {label} ne može biti prazno!
+          Molim ispunite ovo polje!
         </p>
       )}
     </div>
