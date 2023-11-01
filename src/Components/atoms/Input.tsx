@@ -7,7 +7,7 @@ interface InputProps {
   value: string | number;
   name: string;
   placeholder: string;
-  error?: boolean;
+  error?: string;
   disabled?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -18,7 +18,7 @@ const Input: FC<InputProps> = ({
   value,
   name,
   placeholder,
-  error = false,
+  error,
   disabled = false,
   onChange,
 }) => {
@@ -64,7 +64,7 @@ const Input: FC<InputProps> = ({
 
       {error && (
         <p className=" text-red-500 font-medium text-center md:text-left rounded-md px-4">
-          Molim ispunite ovo polje!
+          {error}
         </p>
       )}
     </div>

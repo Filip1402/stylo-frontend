@@ -4,6 +4,7 @@ import Button from "../Components/atoms/Button";
 import { Link } from "react-router-dom";
 import sneakersImg1 from "../assets/images/sneakers1.png";
 import sneakersImg2 from "../assets/images/sneakers2.png";
+import * as Yup from "yup";
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -11,22 +12,48 @@ const Login = () => {
     password: "",
   });
 
-  const [inputError, setInputError] = useState({
-    email: false,
-    password: false,
-  });
+  const [errors, setErrors] = useState<Errors>({});
+
+  const validateForm = () => {
+    const validationSchema = Yup.object().shape({
+      email: Yup.string()
+        .email("Unesi ispravni email")
+        .required("Unesi email adresu!"),
+      password: Yup.string().required("Unesi lozinku!"),
+    });
+
+    try {
+      validationSchema.validateSync(userData, { abortEarly: false });
+      setErrors({} as typeof errors);
+      return true;
+    } catch (error) {
+      const validationErrors: { [key: string]: string } = {};
+      error.inner.forEach((err) => {
+        validationErrors[err.path] = err.message;
+      });
+      setErrors(validationErrors);
+      return false;
+    }
+  };
+
+  interface Errors {
+    [key: string]: string;
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const isValid = validateForm();
+
+    if (isValid) {
+      console.log("Validno je!");
+      console.log(userData);
+    }
+  };
 
   const handleUserDataChange = (name: string, value: string) => {
     setUserData((prevData) => ({
       ...prevData,
       [name]: value,
-    }));
-  };
-
-  const checkData = (name: string, value: string) => {
-    setInputError((prevData) => ({
-      ...prevData,
-      [name]: value === "",
     }));
   };
 
@@ -55,10 +82,14 @@ const Login = () => {
         style={{ boxShadow: "0 0 12px #1443BB" }}
       >
         <h2 className="text-2xl text-center">Postojeći korisnik</h2>
-        <form className="flex flex-col gap-3.5 my-5">
+        <form
+          id="loginForm"
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-3.5 my-5"
+        >
           <Input
             value={userData.email}
-            error={inputError.email}
+            error={errors.email}
             name="email"
             onChange={(e) => handleInputChange(e, "email")}
             type="email"
@@ -66,21 +97,14 @@ const Login = () => {
           />
           <Input
             value={userData.password}
-            error={inputError.password}
+            error={errors.password}
             type="password"
             name="password"
             onChange={(e) => handleInputChange(e, "password")}
             placeholder="Lozinka *"
           />
         </form>
-        <Button
-          onClick={() => {
-            checkData("email", userData.email);
-            checkData("password", userData.password);
-            console.log(userData);
-          }}
-          type="submit"
-        >
+        <Button form="loginForm" onClick={() => {}} type="submit">
           Prijavi se
         </Button>
       </div>

@@ -5,6 +5,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   red = false,
   grey = false,
+  form,
 }) => {
   let buttonClasses = `bg-blue-dark flex flex-row justify-center items-center w-full rounded-2xl border border-none 
   cursor-pointer text-12 font-bold px-2 py-3 text-white-light hover:bg-blue-darker`;
@@ -27,6 +28,7 @@ const Button: React.FC<ButtonProps> = ({
       type={type}
       disabled={disabled}
       className={buttonClasses}
+      form={form}
     >
       {children}
     </button>
@@ -40,6 +42,7 @@ interface ButtonProps {
   disabled?: boolean;
   red?: boolean;
   grey?: boolean;
+  form?: string;
 }
 
 export default Button;
