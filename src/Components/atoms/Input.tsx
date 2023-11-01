@@ -1,4 +1,5 @@
-import { ChangeEvent, FC, HTMLInputTypeAttribute } from "react";
+import { ChangeEvent, FC, HTMLInputTypeAttribute, useState } from "react";
+import { EyeSlash } from "@phosphor-icons/react";
 
 interface InputProps {
   type?: HTMLInputTypeAttribute;
@@ -21,7 +22,13 @@ const Input: FC<InputProps> = ({
   disabled = false,
   onChange,
 }) => {
-  let inputClasses = `border-2 border-grey-middle px-4 bg-white-light w-full rounded-md h-12 font-semibold focus:outline-none text-grey-dark`;
+  let inputClasses = `border-2 border-grey-middle px-4 bg-white-light w-full rounded-md py-3 font-semibold focus:outline-none text-grey-dark`;
+
+  const [inputType, setInputType] = useState(type);
+
+  const changeVisibility = () => {
+    setInputType(inputType == "text" ? "password" : "text");
+  };
 
   if (disabled) {
     inputClasses += `cursor-not-allowed bg-slate-200 text-disabled-text hover:bg-slate-200 border-slate-200 `;
@@ -32,16 +39,29 @@ const Input: FC<InputProps> = ({
       <label htmlFor={label} className="font-semibold text-lg text-grey-dark">
         {label}
       </label>
-      <input
-        className={inputClasses}
-        type={type}
-        id={label}
-        value={value}
-        name={name}
-        placeholder={placeholder}
-        onChange={onChange}
-        disabled={disabled}
-      />
+      <div className="flex relative justify-center align-middle">
+        <input
+          className={inputClasses}
+          type={inputType}
+          id={label}
+          value={value}
+          name={name}
+          placeholder={placeholder}
+          onChange={onChange}
+          disabled={disabled}
+        />
+        {type == "password" && (
+          <div
+            className="absolute right-2 cursor-pointer h-full  flex items-center "
+            onClick={() => {
+              changeVisibility();
+            }}
+          >
+            <EyeSlash size={32} color="#5d5d5d" />
+          </div>
+        )}
+      </div>
+
       {error && (
         <p className=" text-red-500 font-medium text-center md:text-left rounded-md px-4">
           {label} ne može biti prazno!
