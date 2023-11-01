@@ -7,7 +7,7 @@ const Button: React.FC<ButtonProps> = ({
   grey = false,
 }) => {
   let buttonClasses = `bg-blue-dark flex flex-row justify-center items-center w-full rounded-2xl border border-none 
-  cursor-pointer text-12 font-bold px-2 py-2 text-white-light hover:bg-blue-darker`;
+  cursor-pointer text-12 font-bold px-2 py-3 text-white-light hover:bg-blue-darker`;
 
   if (red) {
     buttonClasses += ` bg-red-middle hover:bg-red-middle`;
