@@ -11,8 +11,12 @@ export async function registerUser(userData: object) {
 
   const data = await response.json();
 
+  if (response.ok) {
+    return true;
+  }
+
   if (!response.ok) {
-    console.log(`response.status: ${response.status}`);
+    return false;
   }
 
   return data;

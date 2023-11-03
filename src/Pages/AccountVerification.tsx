@@ -25,8 +25,10 @@ const AccountVerification = () => {
   }, [activation_token]);
 
   return (
-    <div>
-      <h1>Your account is successfully validated</h1>
+    <div className="flex items-center justify-center h-screen bg-white-light">
+      <h1 className="text-gray-dark font-bold text-6xl text-center">
+        Uspješno ste aktivirali račun!
+      </h1>
     </div>
   );
 };

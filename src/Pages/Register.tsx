@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../Components/atoms/Button";
 import Input from "../Components/atoms/Input";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import sneakersImg1 from "../assets/images/sneakers1.png";
 import sneakersImg2 from "../assets/images/sneakers2.png";
 import * as Yup from "yup";
 import { registerUser } from "../api/users";
+import { notifyFailure, notifyLong } from "../Components/atoms/Toast";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -15,6 +16,8 @@ const Register = () => {
     phone_number: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState<Errors>({});
 
@@ -51,7 +54,8 @@ const Register = () => {
     } catch (error) {
       //catch variables have to be type of unknown
       const validationErrors: { [key: string]: string } = {};
-
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       error.inner.forEach((err) => {
         validationErrors[err.path] = err.message;
       });
@@ -80,10 +84,20 @@ const Register = () => {
 
     if (isValid) {
       try {
-        await registerUser(userData);
-        console.log("uspjeh je!");
+        const response = await registerUser(userData);
+
+        if (response) {
+          notifyLong(
+            "Uspješno ste se registrirali. Idite na email i potvrdite svoj račun. Biti ćete preusmjereni na prijavu."
+          );
+          setTimeout(() => {
+            navigate("/login");
+          }, 7000);
+        } else {
+          notifyFailure("Već postoji taj korisnik");
+        }
       } catch {
-        console.log("smh went wrong");
+        console.log("Nešto je pošlo po krivu");
       }
     }
   };
