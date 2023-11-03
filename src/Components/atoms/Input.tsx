@@ -4,10 +4,10 @@ import { EyeSlash } from "@phosphor-icons/react";
 interface InputProps {
   type?: HTMLInputTypeAttribute;
   label?: string;
-  value: string | number;
+  value?: string | number;
   name: string;
   placeholder: string;
-  error?: boolean;
+  error?: string;
   disabled?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -18,11 +18,11 @@ const Input: FC<InputProps> = ({
   value,
   name,
   placeholder,
-  error = false,
+  error,
   disabled = false,
   onChange,
 }) => {
-  let inputClasses = `border-2 border-grey-middle px-4 bg-white-light w-full rounded-md py-3 font-semibold focus:outline-none text-grey-dark`;
+  let inputClasses = `border-2 border-grey-middle px-4 bg-white-light w-full rounded-md py-2 font-semibold focus:outline-none text-grey-dark`;
 
   const [inputType, setInputType] = useState(type);
 
@@ -64,7 +64,7 @@ const Input: FC<InputProps> = ({
 
       {error && (
         <p className=" text-red-500 font-medium text-center md:text-left rounded-md px-4">
-          {label} ne može biti prazno!
+          {error}
         </p>
       )}
     </div>
