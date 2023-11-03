@@ -5,13 +5,14 @@ import { useState } from "react";
 import sneakersImg1 from "../assets/images/sneakers1.png";
 import sneakersImg2 from "../assets/images/sneakers2.png";
 import * as Yup from "yup";
+import { registerUser } from "../api/users";
 
 const Register = () => {
   const [userData, setUserData] = useState({
-    name: "",
-    surname: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    username: "",
+    phone_number: "",
     password: "",
   });
 
@@ -21,15 +22,26 @@ const Register = () => {
     [key: string]: string;
   }
 
+  const phoneRegex =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
   const validateForm = () => {
     const validationSchema = Yup.object().shape({
-      name: Yup.string().required("Unesi ime!"),
-      surname: Yup.string().required("Unesi prezime!"),
+      first_name: Yup.string().required("Unesi ime!"),
+      last_name: Yup.string().required("Unesi prezime!"),
       email: Yup.string()
         .email("Unesi ispravni email")
         .required("Unesi email adresu!"),
       password: Yup.string().required("Unesi lozinku!"),
-      username: Yup.string().required("Unesi korisničko ime!!"),
+      phone_number: Yup.string()
+        .test("is-phone_number", "Unesi ispravan broj telefona", (value) => {
+          if (value) {
+            return phoneRegex.test(value);
+          }
+          return true;
+        })
+        .typeError("Unesi ispravan broj telefona")
+        .required("Unesi broj telefona!"),
     });
 
     try {
@@ -39,6 +51,7 @@ const Register = () => {
     } catch (error) {
       //catch variables have to be type of unknown
       const validationErrors: { [key: string]: string } = {};
+
       error.inner.forEach((err) => {
         validationErrors[err.path] = err.message;
       });
@@ -66,8 +79,12 @@ const Register = () => {
     const isValid = validateForm();
 
     if (isValid) {
-      console.log("Validno je!");
-      console.log(userData);
+      try {
+        await registerUser(userData);
+        console.log("uspjeh je!");
+      } catch {
+        console.log("smh went wrong");
+      }
     }
   };
   return (
@@ -95,17 +112,17 @@ const Register = () => {
           id="registerForm"
         >
           <Input
-            value={userData.name}
-            error={errors.name}
-            name="name"
-            onChange={(e) => handleInputChange(e, "name")}
+            value={userData.first_name}
+            error={errors.first_name}
+            name="first_name"
+            onChange={(e) => handleInputChange(e, "first_name")}
             placeholder="Ime*"
           />
           <Input
-            value={userData.surname}
-            error={errors.surname}
-            name="surname"
-            onChange={(e) => handleInputChange(e, "surname")}
+            value={userData.last_name}
+            error={errors.last_name}
+            name="last_name"
+            onChange={(e) => handleInputChange(e, "last_name")}
             placeholder="Prezime*"
           />{" "}
           <Input
@@ -116,11 +133,11 @@ const Register = () => {
             placeholder="Email*"
           />{" "}
           <Input
-            value={userData.username}
-            error={errors.username}
-            name="username"
-            onChange={(e) => handleInputChange(e, "username")}
-            placeholder="Korisničko ime*"
+            value={userData.phone_number}
+            error={errors.phone_number}
+            name="phone_number"
+            onChange={(e) => handleInputChange(e, "phone_number")}
+            placeholder="Broj telefona*"
           />{" "}
           <Input
             value={userData.password}
