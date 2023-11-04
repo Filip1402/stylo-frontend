@@ -5,13 +5,16 @@ import { Link } from "react-router-dom";
 import sneakersImg1 from "../assets/images/sneakers1.png";
 import sneakersImg2 from "../assets/images/sneakers2.png";
 import * as Yup from "yup";
+import { loginUser } from "../api/users";
+import { useNavigate } from "react-router-dom";
+import { notifyFailure } from "../Components/atoms/Toast";
 
 const Login = () => {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const [errors, setErrors] = useState<Errors>({});
 
   const validateForm = () => {
@@ -26,8 +29,10 @@ const Login = () => {
       validationSchema.validateSync(userData, { abortEarly: false });
       setErrors({} as typeof errors);
       return true;
-    } catch (error) {
+    } catch (err) {
       const validationErrors: { [key: string]: string } = {};
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignoreS
       error.inner.forEach((err) => {
         validationErrors[err.path] = err.message;
       });
@@ -45,8 +50,22 @@ const Login = () => {
     const isValid = validateForm();
 
     if (isValid) {
-      console.log("Validno je!");
       console.log(userData);
+    }
+
+    try {
+      const response = await loginUser(userData);
+      console.log(response);
+
+      if (!response) {
+        console.log(response.error);
+        notifyFailure("Netočni podaci.");
+      } else {
+        localStorage.setItem("token", response.Customer.accessToken);
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
