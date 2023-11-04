@@ -4,7 +4,7 @@ import { EyeSlash } from "@phosphor-icons/react";
 interface InputProps {
   type?: HTMLInputTypeAttribute;
   label?: string;
-  value: string | number;
+  value?: string | number;
   name: string;
   placeholder: string;
   error?: string;
@@ -22,7 +22,7 @@ const Input: FC<InputProps> = ({
   disabled = false,
   onChange,
 }) => {
-  let inputClasses = `border-2 border-grey-middle px-4 bg-white-light w-full rounded-md py-3 font-semibold focus:outline-none text-grey-dark`;
+  let inputClasses = `border-2 border-grey-middle px-4 bg-white-light w-full rounded-md py-2 font-semibold focus:outline-none text-grey-dark`;
 
   const [inputType, setInputType] = useState(type);
 
