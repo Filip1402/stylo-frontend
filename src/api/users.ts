@@ -43,3 +43,23 @@ export async function validateAccount(token: string | undefined | null) {
 
   return data;
 }
+
+
+export async function loginUser(userData: object) {
+  const response = await fetch(`${apiUrl}/customers/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.log(data.error);
+    return data.error;
+  }
+
+  return data;
+}

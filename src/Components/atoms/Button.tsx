@@ -42,7 +42,7 @@ interface ButtonProps {
   disabled?: boolean;
   red?: boolean;
   grey?: boolean;
-  form: string;
+  form?: string;
 }
 
 export default Button;

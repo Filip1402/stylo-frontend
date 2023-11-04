@@ -43,7 +43,7 @@ const Input: FC<InputProps> = ({
         <input
           className={inputClasses}
           type={inputType}
-          id={label}
+          id={name}
           value={value}
           name={name}
           placeholder={placeholder}
