@@ -12,7 +12,8 @@ export async function loginUser(userData: object) {
   const data = await response.json();
 
   if (!response.ok) {
-    return false;
+    console.log(data.error);
+    return data.error;
   }
 
   return data;

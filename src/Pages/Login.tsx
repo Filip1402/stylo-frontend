@@ -29,7 +29,7 @@ const Login = () => {
       validationSchema.validateSync(userData, { abortEarly: false });
       setErrors({} as typeof errors);
       return true;
-    } catch (err) {
+    } catch (error) {
       const validationErrors: { [key: string]: string } = {};
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignoreS
@@ -50,22 +50,21 @@ const Login = () => {
     const isValid = validateForm();
 
     if (isValid) {
-      console.log(userData);
-    }
+      try {
+        const response = await loginUser(userData);
 
-    try {
-      const response = await loginUser(userData);
-      console.log(response);
-
-      if (!response) {
-        console.log(response.error);
-        notifyFailure("Netočni podaci.");
-      } else {
-        localStorage.setItem("token", response.Customer.accessToken);
-        navigate("/");
+        if (response == "Account with the given credentials not found.") {
+          notifyFailure("Netočni podaci ili račun ne postoji.");
+        } else if (response == "Email address of account not verified!") {
+          notifyFailure("Račun nije verificiran. Molimo verificirajte ga.");
+        } else {
+          console.log(response);
+          localStorage.setItem("token", response.accessToken);
+          navigate("/");
+        }
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
     }
   };
 
