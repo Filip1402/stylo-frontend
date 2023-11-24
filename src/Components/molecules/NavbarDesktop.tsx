@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "@phosphor-icons/react";
-import Logo from "../../assets/images/stylo_logo.svg";
+import Logo from "../../assets/images/logo.png";
 
 const NavbarDesktop = () => {
   return (
-    <div className="bg-gray-200 p-6 flex items-center justify-between">
+    <div className="bg-white p-6 flex items-center justify-between">
       <img src={Logo} alt="" />
       <ul className="flex gap-6">
         <Link
@@ -28,7 +28,9 @@ const NavbarDesktop = () => {
         className="text-grey-dark text-lg font-semibold uppercase"
       >
         {" "}
-        <ShoppingCart size={32} color="#1443BB" />
+        <div className="w-177 flex justify-end">
+          <ShoppingCart size={32} color="#1443BB" />
+        </div>
       </Link>
     </div>
   );

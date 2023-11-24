@@ -14,7 +14,7 @@ const NavbarMobile = () => {
   };
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-white">
       <div className="flex justify-between items-center p-4">
         <List
           onClick={navHandler}
