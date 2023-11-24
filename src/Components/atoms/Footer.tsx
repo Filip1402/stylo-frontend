@@ -60,24 +60,6 @@ const Footer = () => {
       },
       {
         type: "links",
-        title: "O nama",
-        content: [
-          {
-            url: "",
-            text: "STYLO misija i vizija",
-          },
-          {
-            url: "",
-            text: "O osnivačima",
-          },
-          {
-            url: "",
-            text: "Zaposli se kod nas",
-          },
-        ],
-      },
-      {
-        type: "links",
         title: "Vodič kroz online kupovinu",
         content: [
           {
