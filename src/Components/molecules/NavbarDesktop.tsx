@@ -5,7 +5,9 @@ import Logo from "../../assets/images/logo.png";
 const NavbarDesktop = () => {
   return (
     <div className="bg-white p-6 flex items-center justify-between">
-      <img src={Logo} alt="" />
+      <Link to={"/homepage"}>
+        <img src={Logo} alt="" />
+      </Link>
       <ul className="flex gap-6">
         <Link
           to="/muskarci"
@@ -28,7 +30,7 @@ const NavbarDesktop = () => {
         className="text-grey-dark text-lg font-semibold uppercase"
       >
         {" "}
-        <div className="w-177 flex justify-end">
+        <div className="flex justify-end" style={{ width: "177px" }}>
           <ShoppingCart size={32} color="#1443BB" />
         </div>
       </Link>
