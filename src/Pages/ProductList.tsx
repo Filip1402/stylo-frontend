@@ -1,4 +1,3 @@
-import ColorItemSelector from "../Components/molecules/ColorItemSelector";
 import ShoeSizeSelector from "../Components/molecules/ShoeSizeSelector";
 import { useState } from "react";
 
@@ -11,8 +10,11 @@ const ProductList = () => {
   };
   return (
     <div>
-      <ColorItemSelector />
-      <ShoeSizeSelector setSelectedShoeSizes={setSelectedShoeSizes} />
+      {/* <ColorItemSelector /> */}
+      <ShoeSizeSelector
+        setSelectedShoeSizes={setSelectedShoeSizes}
+        isGrid={true}
+      />
       <button onClick={handleSendShoeNumbers}>send shoe numbers</button>
     </div>
   );

@@ -51,3 +51,8 @@ export interface ColorItemSelectorProps {
   allowMoreSelections?: boolean;
   selectedColors: Array<Color>;
 }
+
+export interface ShoeSizeSelectorProps {
+  setSelectedShoeSizes: React.Dispatch<React.SetStateAction<number[]>>;
+  isGrid?: boolean;
+}

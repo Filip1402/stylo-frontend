@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-
-interface ShoeSizeSelectorProps {
-  setSelectedShoeSizes: React.Dispatch<React.SetStateAction<number[]>>;
-}
+import { ShoeSizeSelectorProps } from "../../common/types";
 
 const ShoeSizeSelector: React.FC<ShoeSizeSelectorProps> = ({
   setSelectedShoeSizes,
+  isGrid = true,
 }) => {
   const [selectedSizes, setSelectedSizes] = useState<number[]>([]);
 
@@ -25,11 +23,15 @@ const ShoeSizeSelector: React.FC<ShoeSizeSelectorProps> = ({
   }, [selectedSizes, setSelectedShoeSizes]);
 
   return (
-    <div className="grid grid-cols-5 gap-4 p-4 bg-grey-darker w-fit">
+    <div
+      className={`gap-4 p-4 bg-grey-darker w-fit ${
+        isGrid ? "grid grid-cols-5" : "flex"
+      }  `}
+    >
       {hardcodedSizes.map((size) => (
         <div
           key={size}
-          className="rounded-md border bg-white flex justify-center p-3 cursor-pointer h-min w-full"
+          className="rounded-md border bg-white flex justify-center p-3 cursor-pointer h-min w-10"
           style={{
             border: "1px solid #5f83df",
             backgroundColor: selectedSizes.includes(size)
