@@ -1,4 +1,4 @@
-import { ChangeEvent, HTMLInputTypeAttribute } from "react";
+import { ChangeEvent, Dispatch, HTMLInputTypeAttribute } from "react";
 
 export interface Product {
   manufacturer: string;
@@ -7,6 +7,11 @@ export interface Product {
   image: string;
   price: number;
   available?: boolean;
+}
+
+export interface Color {
+  name: string;
+  hexValue: string;
 }
 
 export interface ButtonProps {
@@ -38,4 +43,11 @@ export interface InputProps {
   error?: string;
   disabled?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface ColorItemSelectorProps {
+  setSelectedColors: Dispatch<React.SetStateAction<Color[]>>;
+  isGrid?: boolean;
+  allowMoreSelections?: boolean;
+  selectedColors: Array<Color>;
 }
