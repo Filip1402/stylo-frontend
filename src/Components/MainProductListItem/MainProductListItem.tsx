@@ -1,24 +1,25 @@
-import "./MainProductListItem.scss";
-import { ShoeItemSmallProps } from "../../common/types";
 import { FC } from "react";
+import { ShoeItemSmallProps } from "../../common/types";
 
 const MainProductListItem: FC<ShoeItemSmallProps> = ({ product }) => {
   return (
-    <div className="main-product-list-item-wrapper">
-      <div className="main-product-list-image-wrapper">
-        <img src={product.image} alt="" />
+    <div className="bg-white w-full p-7">
+      <div className="bg-white h-256 w-full mb-4">
+        <img
+          src={product.image}
+          alt="product image"
+          className="object-contain h-full w-full"
+        />
       </div>
-      <div className="main-product-list-item-text-wrapper">
-        <p className="main-product-list-item-manufacturer">
-          {product.manufacturer}
-        </p>
-        <h3>{product.model}</h3>
+      <div className="flex flex-col gap-2">
+        <p className="text-lg text-grey-dark">{product.manufacturer}</p>
+        <h3 className="text-xl text-grey-darker">{product.model}</h3>
         {product.available ? (
-          <h4 style={{ color: "#0D873E" }}>Dostupno</h4>
+          <h4 className="text-green-custom text-xl">Dostupno</h4>
         ) : (
-          <h4 style={{ color: "red" }}>Nedostupno</h4>
+          <h4 className="text-red-500 text-xl">Nedostupno</h4>
         )}
-        <h2>{product.price} €</h2>
+        <h2 className="text-3xl font-bold text-grey-dark">{product.price} €</h2>
       </div>
     </div>
   );
