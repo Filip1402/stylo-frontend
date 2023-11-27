@@ -60,7 +60,7 @@ const Footer = () => {
       },
       {
         type: "links",
-        title: "Vodič kroz online kupovinu",
+        title: "Vodič za online kupovinu",
         content: [
           {
             url: "",
