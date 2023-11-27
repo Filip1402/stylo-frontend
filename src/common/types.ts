@@ -39,7 +39,3 @@ export interface InputProps {
   disabled?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
-
-export interface ShoeItemSmallProps {
-  product: Product;
-}

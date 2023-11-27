@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { FC } from "react";
-import { ShoeItemSmallProps } from "../../common/types";
+import { Product } from "../../common/types";
 
-const ShoeItemSmall: FC<ShoeItemSmallProps> = ({ product }) => {
+const ShoeItemSmall: FC<{ product: Product }> = ({ product }) => {
   return (
     <div>
       <Link to="/">

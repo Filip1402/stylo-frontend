@@ -1,4 +1,4 @@
-import MainProductListItem from "../Components/MainProductListItem/MainProductListItem";
+import MainProductListItem from "../Components/atoms/MainProductListItem";
 import ShoeItemSmall from "../Components/atoms/ShoeItemSmall";
 import { Product } from "../common/types";
 
@@ -17,10 +17,10 @@ const Homepage = () => {
 
   return (
     <div className="grid grid-cols-4 gap-4 p-4 max-w-7xl mx-auto">
-      {/* <ShoeItemSmall product={product} />
       <ShoeItemSmall product={product} />
       <ShoeItemSmall product={product} />
-      <ShoeItemSmall product={product} /> */}
+      <ShoeItemSmall product={product} />
+      <ShoeItemSmall product={product} />
 
       <MainProductListItem product={product} />
       <MainProductListItem product={product} />
