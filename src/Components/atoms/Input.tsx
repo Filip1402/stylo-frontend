@@ -1,16 +1,6 @@
-import { ChangeEvent, FC, HTMLInputTypeAttribute, useState } from "react";
+import { FC, useState } from "react";
 import { EyeSlash } from "@phosphor-icons/react";
-
-interface InputProps {
-  type?: HTMLInputTypeAttribute;
-  label?: string;
-  value?: string | number;
-  name: string;
-  placeholder: string;
-  error?: string;
-  disabled?: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
+import { InputProps } from "../../common/types";
 
 const Input: FC<InputProps> = ({
   type = "text",

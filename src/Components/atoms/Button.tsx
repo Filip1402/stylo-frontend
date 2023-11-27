@@ -1,3 +1,5 @@
+import { ButtonProps } from "../../common/types";
+
 const Button: React.FC<ButtonProps> = ({
   children,
   onClick,
@@ -35,14 +37,6 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-interface ButtonProps {
-  children: React.ReactNode;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  type?: "button" | "submit" | "reset";
-  disabled?: boolean;
-  red?: boolean;
-  grey?: boolean;
-  form?: string;
-}
+
 
 export default Button;

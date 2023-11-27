@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
-import Shoe from "../../assets/images/shoe.png";
+import { FC } from "react";
+import { ShoeItemSmallProps } from "../../common/types";
 
-const ShoeItemSmall = ({ shoe }) => {
+const ShoeItemSmall: FC<ShoeItemSmallProps> = ({ product }) => {
   return (
     <div>
       <Link to="/">
-        <img src={Shoe} alt="shoe-image" className="w-full" />
+        <img src={product.image} alt="product-image" className="w-full" />
         <p className="text-center">
-          {shoe.manufacturer} {shoe.type} {shoe.model}
+          {product.manufacturer} {product.type} {product.model}
         </p>
-        <p className="text-xl font-bold text-center">{shoe.price} €</p>
+        <p className="text-xl font-bold text-center">{product.price} €</p>
       </Link>
     </div>
   );

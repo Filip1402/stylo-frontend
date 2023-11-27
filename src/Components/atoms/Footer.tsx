@@ -4,16 +4,7 @@ import {
   YoutubeLogo,
 } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
-
-interface FooterItem {
-  type: string;
-  title: string;
-  content: { url: string; text: string }[];
-}
-
-interface FooterResponse {
-  data: Array<FooterItem>;
-}
+import { FooterItem, FooterResponse } from "../../common/types";
 
 const Footer = () => {
   const response: FooterResponse = {
@@ -117,7 +108,7 @@ const Footer = () => {
             {el.type == "social" && (
               <ul className="flex gap-4">
                 {el.content.map((item, index) => (
-                  <Link to={item.url} target="_blank">
+                  <Link to={item.url} target="_blank" key={index}>
                     <div
                       key={index}
                       className="rounded-full bg-blue-middle w-fit p-2"
