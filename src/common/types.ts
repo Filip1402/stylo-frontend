@@ -6,6 +6,7 @@ export interface Product {
   model: string;
   image: string;
   price: number;
+  available?: boolean;
 }
 
 export interface ButtonProps {
