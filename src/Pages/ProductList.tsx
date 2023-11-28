@@ -1,3 +1,4 @@
+import Filter from "../Components/molecules/Filter";
 import ShoeSizeSelector from "../Components/molecules/ShoeSizeSelector";
 import { useState } from "react";
 
@@ -11,6 +12,7 @@ const ProductList = () => {
   return (
     <div>
       {/* <ColorItemSelector /> */}
+      <Filter />
       <ShoeSizeSelector
         setSelectedShoeSizes={setSelectedShoeSizes}
         isGrid={true}

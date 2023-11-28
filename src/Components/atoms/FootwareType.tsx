@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { FC } from "react";
 import { FootwareTypeProps } from "../../common/types";
