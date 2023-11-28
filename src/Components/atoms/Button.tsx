@@ -10,7 +10,7 @@ const Button: React.FC<ButtonProps> = ({
   form,
 }) => {
   let buttonClasses = `bg-blue-dark flex flex-row justify-center items-center w-full rounded-full border border-none 
-  cursor-pointer text-12 font-bold px-2 py-2 text-white-light hover:bg-blue-darker border-none`;
+  cursor-pointer text-12 font-bold px-2 py-3 text-white-light hover:bg-blue-darker border-none`;
 
   if (red) {
     buttonClasses += ` bg-red-middle hover:bg-red-middle`;
@@ -36,7 +36,5 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
-
-
 
 export default Button;

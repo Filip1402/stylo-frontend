@@ -7,15 +7,11 @@ const Carousel: FC<CarouselProps> = ({ images }) => {
   return (
     <div>
       <ReactCarousel>
-        <div>
-          <img src={`${images[0]}`} />
-        </div>
-        <div>
-          <img src={`${images[0]}`} />
-        </div>
-        <div>
-          <img src={`${images[0]}`} />
-        </div>
+        {images.map((el, index) => (
+          <div key={index}>
+            <img src={el} alt={`image-${index}`} />
+          </div>
+        ))}
       </ReactCarousel>
     </div>
   );

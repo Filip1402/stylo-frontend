@@ -5,7 +5,9 @@ export interface Product {
   type: string;
   model: string;
   images: Array<string>;
+  sizes: Array<number>;
   price: number;
+  colors: Array<Color>;
   available?: boolean;
 }
 
