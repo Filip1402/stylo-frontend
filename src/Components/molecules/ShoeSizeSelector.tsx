@@ -25,7 +25,7 @@ const ShoeSizeSelector: React.FC<ShoeSizeSelectorProps> = ({
 
   return (
     <div
-      className={`gap-1 p-4 bg-grey-darker w-fit ${
+      className={`gap-1  bg-grey-darker w-fit ${
         isGrid ? "grid grid-cols-5" : "flex"
       }  `}
     >
