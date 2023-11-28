@@ -16,6 +16,10 @@ export default {
         "disabled-text": "#8899C5",
         "green-custom": "#0D873E",
       },
+
+      height: {
+        500: "31rem",
+      },
       outlineWidth: {
         6: "6px",
       },

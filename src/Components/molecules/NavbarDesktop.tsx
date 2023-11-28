@@ -10,16 +10,19 @@ const NavbarDesktop = () => {
       </Link>
       <ul className="flex gap-6">
         <Link
-          to="/muskarci"
+          to="/proizvodi/muskarci"
           className="uppercase font-bold text-grey-dark text-lg"
         >
           Muškarci
         </Link>
-        <Link to="/zene" className="uppercase font-bold text-grey-dark text-lg">
+        <Link
+          to="proizvodi/zene"
+          className="uppercase font-bold text-grey-dark text-lg"
+        >
           Žene
         </Link>
         <Link
-          to="/djeca"
+          to="proizvodi/djeca"
           className="uppercase font-bold text-grey-dark text-lg"
         >
           Djeca

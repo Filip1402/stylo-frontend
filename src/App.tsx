@@ -6,6 +6,7 @@ import Homepage from "./Pages/Homepage";
 import AccountVerification from "./Pages/AccountVerification";
 import Layout from "./Layout";
 import ProductList from "./Pages/ProductList";
+import ProductListCategories from "./Pages/ProductListCategories";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Homepage />} />
-          <Route path="/product-list" element={<ProductList />} />
+          <Route path="/lista-proizvoda" element={<ProductList />} />
+          <Route path="/proizvodi" element={<ProductListCategories />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

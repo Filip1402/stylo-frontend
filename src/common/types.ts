@@ -56,3 +56,8 @@ export interface ShoeSizeSelectorProps {
   setSelectedShoeSizes: React.Dispatch<React.SetStateAction<number[]>>;
   isGrid?: boolean;
 }
+
+export interface FootwareTypeProps {
+  title: string;
+  image: string;
+}
