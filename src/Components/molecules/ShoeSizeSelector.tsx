@@ -4,19 +4,20 @@ import { ShoeSizeSelectorProps } from "../../common/types";
 const ShoeSizeSelector: React.FC<ShoeSizeSelectorProps> = ({
   setSelectedShoeSizes,
   isGrid = true,
+  singleSelection = false,
+  sizes,
 }) => {
   const [selectedSizes, setSelectedSizes] = useState<number[]>([]);
 
   const handleSizeChange = (size: number) => {
     setSelectedSizes((prevSizes) =>
-      prevSizes.includes(size)
+      singleSelection
+        ? [size]
+        : prevSizes.includes(size)
         ? prevSizes.filter((item) => item !== size)
         : [...prevSizes, size]
     );
   };
-
-  // Hardcoded 20 buttons for testing
-  const hardcodedSizes = Array.from({ length: 20 }, (_, index) => index + 1);
 
   useEffect(() => {
     setSelectedShoeSizes(selectedSizes);
@@ -28,7 +29,7 @@ const ShoeSizeSelector: React.FC<ShoeSizeSelectorProps> = ({
         isGrid ? "grid grid-cols-5" : "flex"
       }  `}
     >
-      {hardcodedSizes.map((size) => (
+      {sizes.map((size) => (
         <div
           key={size}
           className="rounded-md border bg-white flex justify-center p-1.5 cursor-pointer h-min w-12"

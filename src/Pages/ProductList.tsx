@@ -14,8 +14,10 @@ const ProductList = () => {
       {/* <ColorItemSelector /> */}
       <Filter />
       <ShoeSizeSelector
+        singleSelection={false}
         setSelectedShoeSizes={setSelectedShoeSizes}
         isGrid={true}
+        sizes={[32, 34, 45]}
       />
       <button onClick={handleSendShoeNumbers}>send shoe numbers</button>
     </div>
