@@ -30,9 +30,9 @@ const Filter = () => {
       </div>
 
       {isFilterVisible && (
-        <div className="flex justify-between absolute top-0 left-0 z-10 w-full h-96 bg-grey-darker text-white-light pl-16 pr-16 pt-10 pb-10">
+        <div className="flex flex-col h-fit gap-6 justify-between absolute top-0 left-0 z-10 w-full align-middle  bg-grey-darker text-white-light pl-16 pr-16 pt-10 pb-10 lg:flex-row lg:h-96 lg:align-baseline">
           <button
-            className="absolute right-2 pr-16 text-white-light cursor-pointer"
+            className="relative flex  pr-0 lg:absolute justify-end right-2 lg:pr-16 text-white-light cursor-pointer lg:justify-normal "
             onClick={closeFilter}
           >
             <X size={45} className="bg-white-light text-grey-dark rounded-md" />
@@ -58,7 +58,7 @@ const Filter = () => {
             />
           </div>
 
-          <div className="filter-buttons-wrapper flex justify-end flex-col w-[200px] gap-6">
+          <div className="filter-buttons-wrapper flex justify-end flex-col w-[200px] gap-6 mx-auto lg:mx-0">
             <button
               className="bg-blue-dark flex flex-row justify-center items-center w-full rounded-full border border-none 
   cursor-pointer text-12 font-bold px-4 py-2 text-white-light hover:bg-blue-darker "
