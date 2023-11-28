@@ -4,7 +4,7 @@ export interface Product {
   manufacturer: string;
   type: string;
   model: string;
-  image: string;
+  images: Array<string>;
   price: number;
   available?: boolean;
 }
@@ -55,4 +55,8 @@ export interface ColorItemSelectorProps {
 export interface ShoeSizeSelectorProps {
   setSelectedShoeSizes: React.Dispatch<React.SetStateAction<number[]>>;
   isGrid?: boolean;
+}
+
+export interface CarouselProps {
+  images: Array<string>;
 }
