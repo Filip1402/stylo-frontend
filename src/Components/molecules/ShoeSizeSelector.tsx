@@ -24,14 +24,14 @@ const ShoeSizeSelector: React.FC<ShoeSizeSelectorProps> = ({
 
   return (
     <div
-      className={`gap-4 p-4 bg-grey-darker w-fit ${
+      className={`gap-1 p-4 bg-grey-darker w-fit ${
         isGrid ? "grid grid-cols-5" : "flex"
       }  `}
     >
       {hardcodedSizes.map((size) => (
         <div
           key={size}
-          className="rounded-md border bg-white flex justify-center p-3 cursor-pointer h-min w-10"
+          className="rounded-md border bg-white flex justify-center p-1.5 cursor-pointer h-min w-12"
           style={{
             border: "1px solid #5f83df",
             backgroundColor: selectedSizes.includes(size)
