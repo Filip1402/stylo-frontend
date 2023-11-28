@@ -37,7 +37,7 @@ const ProductDetails = () => {
   return (
     <div className="max-w-7xl mx-auto flex flex-col w-full md:px-8 lg:px-0 py-8">
       <div className="flex flex-col gap-8 md:flex-row">
-        <div className="flex-1">
+        <div className="flex-1 md:max-w-[50%]">
           <Carousel images={product.images} />
         </div>
         <div className="flex-1 flex-col flex gap-4 justify-center px-4 md:gap-2">
