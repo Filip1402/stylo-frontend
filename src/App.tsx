@@ -6,6 +6,7 @@ import Homepage from "./Pages/Homepage";
 import AccountVerification from "./Pages/AccountVerification";
 import Layout from "./Layout";
 import ProductList from "./Pages/ProductList";
+import ProductListCategories from "./Pages/ProductListCategories";
 import ProductDetails from "./Pages/ProductDetails";
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Homepage />} />
-          <Route path="/product-list" element={<ProductList />} />
+          <Route path="/lista-proizvoda" element={<ProductList />} />
+          <Route path="/proizvodi" element={<ProductListCategories />} />
           <Route path="/proizvodi/:id" element={<ProductDetails />} />
         </Route>
         <Route path="/login" element={<Login />} />
