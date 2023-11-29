@@ -1,9 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import NavbarDesktop from "./NavbarDesktop";
 import NavbarMobile from "./NavbarMobile";
+import { HeaderItem, LayoutData } from "../../common/types";
 
-const Header = () => {
+const Header: FC<{ layoutData: LayoutData | null }> = ({ layoutData }) => {
   const [isDesktop, setDesktop] = useState(window.innerWidth >= 1024);
+
+  const [headerData, setHeaderData] = useState<Array<HeaderItem> | null>([]);
+
+  useEffect(() => {
+    layoutData && setHeaderData(layoutData?.layout.header);
+  }, [layoutData]);
 
   const updateMedia = () => {
     setDesktop(window.innerWidth >= 1024);
@@ -15,7 +22,11 @@ const Header = () => {
   });
   return (
     <div className="header-wrapper">
-      {isDesktop ? <NavbarDesktop /> : <NavbarMobile />}
+      {isDesktop ? (
+        <NavbarDesktop layoutData={layoutData} />
+      ) : (
+        <NavbarMobile layoutData={layoutData} />
+      )}
     </div>
   );
 };
