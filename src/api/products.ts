@@ -8,6 +8,5 @@ export async function getLayout() {
     console.log(data.error);
     return data.error;
   }
-
   return data;
 }

@@ -3,28 +3,30 @@ import Header from "./Components/molecules/Header";
 import Footer from "./Components/atoms/Footer";
 import { useEffect, useState } from "react";
 import { getLayout } from "./api/products";
+import { LayoutData } from "./common/types";
 
 const Layout = () => {
-  const [layoutData, setLayoutData] = useState(null);
+  const [layoutData, setLayoutData] = useState<LayoutData | null>(null);
+
+  const fetchData = async () => {
+    try {
+      const data = await getLayout();
+      setLayoutData(data);
+    } catch (error) {
+      console.error("Error occured while fetching layout data:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getLayout();
-        setLayoutData(data);
-        console.log(layoutData);
-      } catch (error) {
-        console.error("Error occured while fetching layout data:", error);
-      }
-    };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <main className="min-h-screen flex flex-col bg-white-light ">
       <Header />
       <Outlet />
-      <Footer />
+      <Footer layoutData={layoutData} />
     </main>
   );
 };
