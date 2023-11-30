@@ -6,6 +6,7 @@ import ColorItemSelector from "../Components/molecules/ColorItemSelector";
 import ShoeSizeSelector from "../Components/molecules/ShoeSizeSelector";
 import Button from "../Components/atoms/Button";
 import { getProduct } from "../api/products";
+import NoImage from "../assets/images/no-image.jpg";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -53,7 +54,9 @@ const ProductDetails = () => {
     setProductSizes([]);
     selected.sizes.map((el) => {
       console.log(el);
-      setProductSizes((prev) => [...prev, el.size]);
+      if (el.quantity > 0) {
+        setProductSizes((prev) => [...prev, el.size]);
+      }
     });
   };
 
@@ -76,7 +79,13 @@ const ProductDetails = () => {
       {product ? (
         <div className="flex flex-col gap-8 md:flex-row">
           <div className="flex-1 md:max-w-[50%]">
-            <Carousel images={product.variants[0].images} />
+            <Carousel
+              images={
+                product.variants[0].images
+                  ? product.variants[0].images
+                  : [NoImage]
+              }
+            />
           </div>
           <div className="flex-1 flex-col flex gap-4 justify-center px-4 md:gap-2">
             <h3 className="text-xl font-medium text-grey-dark">

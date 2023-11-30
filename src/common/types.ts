@@ -15,7 +15,7 @@ export interface Product {
 export interface ProductVariants {
   sku: string;
   color: string;
-  images: Array<string>;
+  images?: Array<string>;
   sizes: Array<{ size: number; quantity: number }>;
 }
 
