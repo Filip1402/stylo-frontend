@@ -49,7 +49,7 @@ const NavbarMobile: FC<{ layoutData: LayoutData | null }> = ({
           {navData?.map((item) => (
             <li key={item.id}>
               <Link
-                to={`/proizvodi?kategorija=${item.name.toLowerCase()}`}
+                to={`/kategorije/${item.name.toLowerCase()}`}
                 className="text-grey-dark text-lg font-semibold uppercase"
               >
                 {item.name}
