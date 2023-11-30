@@ -1,9 +1,18 @@
 import { List, ShoppingCart, X } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { HeaderItem, LayoutData } from "../../common/types";
+import { FC } from "react";
 
-const NavbarMobile = () => {
+const NavbarMobile: FC<{ layoutData: LayoutData | null }> = ({
+  layoutData,
+}) => {
   const [openNav, setOpenNav] = useState(false);
+
+  const [navData, setNavData] = useState<Array<HeaderItem> | null>([]);
+  useEffect(() => {
+    layoutData && setNavData(layoutData?.layout.header);
+  }, [layoutData]);
 
   const navHandler = () => {
     setOpenNav(!openNav);
@@ -37,31 +46,16 @@ const NavbarMobile = () => {
       </div>
       <nav className={`p-4 ${openNav ? "block" : "hidden"}`} onClick={closeNav}>
         <ul className="list-none flex flex-col items-center gap-4">
-          <li>
-            <Link
-              to="/muškarci"
-              className="text-grey-dark text-lg font-semibold uppercase"
-            >
-              Muškarci
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/žene"
-              className="text-grey-dark text-lg font-semibold uppercase"
-            >
-              Žene
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/djeca"
-              className="text-grey-dark text-lg font-semibold uppercase"
-            >
-              Djeca
-            </Link>
-          </li>
-
+          {navData?.map((item) => (
+            <li key={item.id}>
+              <Link
+                to={`/proizvodi?kategorija=${item.name.toLowerCase()}`}
+                className="text-grey-dark text-lg font-semibold uppercase"
+              >
+                {item.name}
+              </Link>
+            </li>
+          ))}
           <li>
             <Link
               to="/kosarica"

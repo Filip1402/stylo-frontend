@@ -24,14 +24,27 @@ export interface ButtonProps {
   form?: string;
 }
 
+export interface HeaderItem {
+  name: string;
+  id: string;
+}
+
 export interface FooterItem {
   type: string;
   title: string;
   content: { url: string; text: string }[];
 }
 
-export interface FooterResponse {
-  data: Array<FooterItem>;
+export interface LayoutData {
+  layout: {
+    header: Array<HeaderItem>;
+    footer: {
+      footerText: string;
+      footerContent: {
+        data: Array<FooterItem>;
+      };
+    };
+  };
 }
 
 export interface InputProps {
