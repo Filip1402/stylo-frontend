@@ -42,6 +42,26 @@ export interface LayoutData {
   };
 }
 
+export interface HomepageData {
+  images: {
+    "hero-img": {
+      url: string;
+    };
+    "content-image": {
+      url: string;
+    };
+    "bottom-banner-image": {
+      url: string;
+    };
+  }[];
+  products: {
+    name: string;
+    available: boolean;
+    price: number;
+    image: string;
+  }[];
+}
+
 export interface InputProps {
   type?: HTMLInputTypeAttribute;
   label?: string;
