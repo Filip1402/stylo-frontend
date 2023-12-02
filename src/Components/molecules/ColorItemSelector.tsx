@@ -5,15 +5,9 @@ const ColorItemSelector: FC<ColorItemSelectorProps> = ({
   isGrid = false,
   setSelectedColors,
   selectedColors,
+  colors,
   allowMoreSelections = true,
 }) => {
-  const colors: Array<Color> = [
-    { name: "bijela", hexValue: "#fafafa" },
-    { name: "crvena", hexValue: "#e02f2f" },
-    { name: "crna", hexValue: "#141414" },
-    { name: "plava", hexValue: "#3152e4" },
-  ];
-
   const isAlreadySelected = (el: Color) => {
     return selectedColors.some((item) => item.name === el.name);
   };

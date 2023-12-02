@@ -7,6 +7,7 @@ import AccountVerification from "./Pages/AccountVerification";
 import Layout from "./Layout";
 import ProductList from "./Pages/ProductList";
 import ProductListCategories from "./Pages/ProductListCategories";
+import ProductDetails from "./Pages/ProductDetails";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route index element={<Homepage />} />
           <Route path="/proizvodi/:gender/:type" element={<ProductList />} />
           <Route path="/kategorije/:type" element={<ProductListCategories />} />
+          <Route path="/proizvodi/:id" element={<ProductDetails />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

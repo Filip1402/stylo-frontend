@@ -8,7 +8,7 @@ const MainProductListItem: FC<{ product: Product }> = ({ product }) => {
       <div className="bg-white w-full p-7">
         <div className="bg-white h-256 w-full mb-4">
           <img
-            src={product.image}
+            src={product.images[0]}
             alt="product image"
             className="object-contain h-full w-full"
           />

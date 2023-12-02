@@ -1,12 +1,22 @@
 import { ChangeEvent, Dispatch, HTMLInputTypeAttribute } from "react";
 
 export interface Product {
+  id: string;
   manufacturer: string;
-  type: string;
   model: string;
-  image: string;
   price: number;
+  type: string;
+  categories: string;
+  variants: Array<ProductVariants>;
+
   available?: boolean;
+}
+
+export interface ProductVariants {
+  sku: string;
+  color: string;
+  images?: Array<string>;
+  sizes: Array<{ size: number; quantity: number }>;
 }
 
 export interface Color {
@@ -63,6 +73,7 @@ export interface ColorItemSelectorProps {
   isGrid?: boolean;
   allowMoreSelections?: boolean;
   selectedColors: Array<Color>;
+  colors: Array<Color>;
 }
 
 export interface ShoeSizeSelectorProps {
@@ -75,4 +86,8 @@ export interface ShoeSizeSelectorProps {
 export interface FootwareTypeProps {
   title: string;
   image: string;
+}
+
+export interface CarouselProps {
+  images: Array<string>;
 }
