@@ -6,7 +6,7 @@ export const colors = [
 
   {
     name: "siva",
-    hexValue: "#BEBEBE",
+    hexValue: "#494646",
   },
   {
     name: "plava",

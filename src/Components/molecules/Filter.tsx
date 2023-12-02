@@ -37,14 +37,14 @@ const Filter = () => {
       </div>
 
       {isFilterVisible && (
-        <div className="flex flex-col h-fit gap-6 justify-between absolute top-0 left-0 z-10 w-full align-middle  bg-grey-darker text-white-light pl-16 pr-16 pt-10 pb-10 lg:flex-row lg:h-96 lg:align-baseline">
+        <div className="flex flex-col h-fit gap-6 justify-between absolute top-0 left-0 z-10 w-full align-middle  bg-grey-darker text-white-light pl-8 pr-8 pt-10 pb-10 lg:flex-row lg:h-96 lg:align-baseline">
           <button
-            className="relative flex  pr-0 lg:absolute justify-end right-2 lg:pr-16 text-white-light cursor-pointer lg:justify-normal "
+            className="relative flex justify-end  pr-0 lg:absolute  text-white-light cursor-pointer lg:justify-normal lg:right-10  "
             onClick={closeFilter}
           >
             <X size={45} className="bg-white-light text-grey-dark rounded-md" />
           </button>
-          <div className="flex gap-6 flex-col">
+          <div className="flex gap-6 flex-col items-center lg:items-baseline ">
             <h3>Veličina</h3>
             <ShoeSizeSelector
               singleSelection={false}
@@ -57,7 +57,7 @@ const Filter = () => {
             />
           </div>
 
-          <div className="flex gap-6 flex-col">
+          <div className="flex gap-6 flex-col items-center lg:items-baseline">
             <h3>Boja</h3>
             <ColorItemSelector
               colors={colors}
