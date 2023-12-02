@@ -81,6 +81,7 @@ export interface ShoeSizeSelectorProps {
   isGrid?: boolean;
   singleSelection?: boolean;
   sizes: Array<number>;
+  selectedSizes: Array<number>;
 }
 
 export interface FootwareTypeProps {

@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Faders, X } from "@phosphor-icons/react";
 import ShoeSizeSelector from "./ShoeSizeSelector";
 import ColorItemSelector from "./ColorItemSelector";
 import { Color } from "../../common/types";
+import { colors } from "../../common/constants";
 
 const Filter = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedShoeSizes, setSelectedShoeSizes] = useState<number[]>([]);
   const [selectedColors, setSelectedColors] = useState<Color[]>([]);
+  const [productColors, setProductColors] = useState<Color[]>([]);
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
@@ -15,6 +17,11 @@ const Filter = () => {
 
   const closeFilter = () => {
     setIsFilterVisible(false);
+  };
+
+  const clearFilter = () => {
+    // Log selected shoe sizes to the console
+    console.log("Selected Shoe Sizes:", selectedShoeSizes);
   };
 
   return (
@@ -46,12 +53,14 @@ const Filter = () => {
               sizes={[
                 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
               ]}
+              selectedSizes={selectedShoeSizes}
             />
           </div>
 
           <div className="flex gap-6 flex-col">
             <h3>Boja</h3>
             <ColorItemSelector
+              colors={colors}
               isGrid={true}
               setSelectedColors={setSelectedColors}
               selectedColors={selectedColors}
@@ -62,6 +71,7 @@ const Filter = () => {
             <button
               className="bg-blue-dark flex flex-row justify-center items-center w-full rounded-full border border-none 
   cursor-pointer text-12 font-bold px-4 py-2 text-white-light hover:bg-blue-darker "
+              onClick={clearFilter}
             >
               OČISTI FILTER
             </button>

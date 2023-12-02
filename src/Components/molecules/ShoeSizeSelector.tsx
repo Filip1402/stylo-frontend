@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { ShoeSizeSelectorProps } from "../../common/types";
 
 const ShoeSizeSelector: React.FC<ShoeSizeSelectorProps> = ({
@@ -6,11 +6,10 @@ const ShoeSizeSelector: React.FC<ShoeSizeSelectorProps> = ({
   isGrid = true,
   singleSelection = false,
   sizes,
+  selectedSizes,
 }) => {
-  const [selectedSizes, setSelectedSizes] = useState<number[]>([]);
-
   const handleSizeChange = (size: number) => {
-    setSelectedSizes((prevSizes) =>
+    setSelectedShoeSizes((prevSizes) =>
       singleSelection
         ? [size]
         : prevSizes.includes(size)
@@ -24,11 +23,7 @@ const ShoeSizeSelector: React.FC<ShoeSizeSelectorProps> = ({
   }, [selectedSizes, setSelectedShoeSizes]);
 
   return (
-    <div
-      className={`gap-1  bg-grey-darker w-fit ${
-        isGrid ? "grid grid-cols-5" : "flex"
-      }  `}
-    >
+    <div className={`gap-1  w-fit ${isGrid ? "grid grid-cols-5" : "flex"}  `}>
       {sizes.map((size) => (
         <div
           key={size}

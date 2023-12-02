@@ -14,7 +14,7 @@ const NavbarDesktop: FC<{ layoutData: LayoutData | null }> = ({
 
   return (
     <div className="bg-white p-6 flex items-center justify-between">
-      <Link to="/homepage">
+      <Link to="/">
         <img src={Logo} alt="" />
       </Link>
       <ul className="flex gap-6">

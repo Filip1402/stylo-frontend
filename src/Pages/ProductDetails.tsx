@@ -118,6 +118,7 @@ const ProductDetails = () => {
               setSelectedShoeSizes={setSelectedSize}
               sizes={productSizes}
               singleSelection={true}
+              selectedSizes={selectedSize}
             />
 
             <div className="max-w-sm mt-4">
