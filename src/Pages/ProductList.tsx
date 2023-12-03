@@ -70,16 +70,21 @@ const ProductList = () => {
   return (
     <div>
       <Filter onApplyFilter={applyFilter} />
-
-      <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 lg:max-w-7xl mx-auto">
-        {filteredProducts?.length === 0 ? (
-          <h1 className="w-full">Nema proizvoda koji odgovaraju filteru</h1>
-        ) : (
-          filteredProducts?.map((product) => (
-            <MainProductListItem key={product.id} product={product} />
-          ))
-        )}
-      </div>
+      {filteredProducts === undefined ? (
+        <div className="max-w-7xl mx-auto p-4">
+          <h1>Loading...</h1>
+        </div>
+      ) : (
+        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 lg:max-w-7xl mx-auto">
+          {filteredProducts.length === 0 ? (
+            <h1 className="w-full">Nema proizvoda koji odgovaraju filteru</h1>
+          ) : (
+            filteredProducts.map((product) => (
+              <MainProductListItem key={product.id} product={product} />
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
 };

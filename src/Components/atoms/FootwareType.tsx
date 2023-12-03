@@ -11,7 +11,9 @@ const FootwareType: FC<{ footwareType: FootwareTypeProps }> = ({
     <div className="relative h-80 lg:h-[350px] xl:h-500">
       <div className="relative w-full h-full overflow-hidden rounded-2xl">
         <img
-          src={`https://${footwareType.url}`}
+          src={
+            `https://${footwareType.url}` || "../../assets/images/no-image.jpg"
+          }
           alt=""
           className="w-full h-full object-cover"
         />
