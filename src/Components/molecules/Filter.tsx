@@ -13,7 +13,6 @@ const Filter = ({
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedShoeSizes, setSelectedShoeSizes] = useState<number[]>([]);
   const [selectedColors, setSelectedColors] = useState<Color[]>([]);
-  const [productColors, setProductColors] = useState<Color[]>([]);
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);

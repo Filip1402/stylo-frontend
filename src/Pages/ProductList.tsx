@@ -40,7 +40,7 @@ const ProductList = () => {
       const data = await getFilteredProducts(
         gender!,
         type!,
-        selectedShoeSizes.length > 0 ? selectedShoeSizes : undefined,
+        selectedShoeSizes.length > 0 ? selectedShoeSizes : undefined, //they can be undefined because they are not required
         selectedColors.length > 0 ? selectedColors[0].name : undefined
       );
       setFilteredProducts(data);
@@ -61,13 +61,10 @@ const ProductList = () => {
     selectedColors: Color[],
     selectedShoeSizes: number[]
   ) => {
-    // Perform actions with the selected colors and shoe sizes
     console.log("Selected Colors:", selectedColors);
     console.log("Selected Shoe Sizes:", selectedShoeSizes);
 
     fetchDataWithFilter(selectedShoeSizes, selectedColors);
-
-    // Refetch data or update the component state as needed
   };
 
   return (

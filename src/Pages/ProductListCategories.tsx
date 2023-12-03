@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import { getProductCategories } from "../api/product_categories";
 import { ProductCategory } from "../common/types";
 
-//const availableCategories: any = layoutHeader || [];
-
 const ProductListCategories = () => {
   const [productCategories, setProductCategories] = useState<
     ProductCategory[] | undefined
