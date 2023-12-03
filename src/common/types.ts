@@ -92,3 +92,8 @@ export interface FootwareTypeProps {
 export interface CarouselProps {
   images: Array<string>;
 }
+
+export interface ProductCategory {
+  name: string;
+  url: string;
+}
