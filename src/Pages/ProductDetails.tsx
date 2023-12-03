@@ -7,6 +7,7 @@ import ShoeSizeSelector from "../Components/molecules/ShoeSizeSelector";
 import Button from "../Components/atoms/Button";
 import { getProduct } from "../api/products";
 import NoImage from "../assets/images/no-image.jpg";
+import { colors } from "../common/constants";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -35,24 +36,52 @@ const ProductDetails = () => {
     }
   };
 
-  const calculateColors = (variants) => {
-    variants.map((variant) => {
-      console.log(variant);
-      setProductColors((prev) => [
-        ...prev,
-        { name: variant.color, hexValue: "#8721a1" }, // TODO change later with dynamic colors
-      ]);
+  const findColor = (name: string) => {
+    const color = colors.find((item) => {
+      console.log(item);
+      return item.name === name;
     });
+    return color?.hexValue;
+  };
+
+  const calculateColors = (variants) => {
+    variants.map(
+      (variant: {
+        sku: string;
+        color: string;
+        images: Array<string>;
+        sizes: Array<number>;
+      }) => {
+        console.log(variant);
+        setProductColors((prev) => [
+          ...prev,
+          {
+            name: variant.color,
+            hexValue: findColor(variant.color.toLowerCase()),
+          }, // TODO change later with dynamic colors
+        ]);
+      }
+    );
     // console.log(productColors);
   };
 
-  const calculateSizesBySelectedVariant = (varColor, variants) => {
+  const calculateSizesBySelectedVariant = (
+    varColor,
+    variants: {
+      sku: string;
+      color: string;
+      images: Array<string>;
+      sizes: Array<number>;
+    }
+  ) => {
     const selected = variants.find((item) => {
+      console.log(varColor);
+
       return item.color === varColor[0].name;
     });
     console.log(`selected: ${JSON.stringify(selected)}`);
     setProductSizes([]);
-    selected.sizes.map((el) => {
+    selected.sizes.map((el: { size: number; quantity: number }) => {
       console.log(el);
       if (el.quantity > 0) {
         setProductSizes((prev) => [...prev, el.size]);
@@ -62,6 +91,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     fetchData();
+    console.log(findColor("narančasta"));
   }, []);
 
   useEffect(() => {
@@ -113,7 +143,6 @@ const ProductDetails = () => {
               selectedColors={selectedColor}
               allowMoreSelections={false}
             />
-            {JSON.stringify(productSizes)}
             <ShoeSizeSelector
               setSelectedShoeSizes={setSelectedSize}
               sizes={productSizes}
@@ -121,6 +150,7 @@ const ProductDetails = () => {
               selectedSizes={selectedSize}
             />
 
+            <p>{JSON.stringify(product.available)}</p>
             <div className="max-w-sm mt-4">
               <Button
                 onClick={() => {
@@ -128,6 +158,7 @@ const ProductDetails = () => {
                   console.log(selectedColor[0].name);
                   console.log(selectedSize);
                 }}
+                disabled={!product.available}
               >
                 Dodaj u košaricu
               </Button>
