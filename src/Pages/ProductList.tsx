@@ -74,11 +74,14 @@ const ProductList = () => {
     <div>
       <Filter onApplyFilter={applyFilter} />
 
-      <div className="grid grid-cols-4 gap-4 p-4 max-w-7xl mx-auto">
-        {filteredProducts &&
-          filteredProducts.map((product) => (
+      <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 lg:max-w-7xl mx-auto">
+        {filteredProducts?.length === 0 ? (
+          <h1 className="w-full">Nema proizvoda koji odgovaraju filteru</h1>
+        ) : (
+          filteredProducts?.map((product) => (
             <MainProductListItem key={product.id} product={product} />
-          ))}
+          ))
+        )}
       </div>
     </div>
   );

@@ -28,9 +28,11 @@ const Filter = ({
   };
 
   const clearFilter = () => {
-    // Log selected shoe sizes to the console
-    console.log("Selected Shoe Sizes:", selectedShoeSizes);
-    console.log("Selected colors:", selectedColors);
+    setSelectedShoeSizes([]);
+    setSelectedColors([]);
+
+    console.log("Cleared Shoe Sizes:", selectedShoeSizes);
+    console.log("Cleared Colors:", selectedColors);
   };
 
   return (
@@ -89,7 +91,10 @@ const Filter = ({
             <button
               className="bg-white-light flex flex-row justify-center items-center w-full rounded-full border border-none 
   cursor-pointer text-12 font-bold px-4 py-2 text-blue-dark hover:bg-grey-middle "
-              onClick={applyFilter}
+              onClick={() => {
+                applyFilter();
+                closeFilter();
+              }}
             >
               PRIMJENI FILTER
             </button>
