@@ -12,10 +12,8 @@ const Header: FC<{ layoutData: LayoutData | null }> = ({ layoutData }) => {
 
   useEffect(() => {
     layoutData && setHeaderData(layoutData?.layout.header);
-    console.log("Layout data je", layoutData);
     if (layoutData) {
       layoutHeader = layoutData.layout.header;
-      console.log("Layout data je", layoutData);
     }
   }, [layoutData]);
 
