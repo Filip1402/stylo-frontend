@@ -14,19 +14,18 @@ const ProductListCategories = () => {
 
   const fetchData = async () => {
     try {
-      const data = await getProductCategories(id!);
+      const data = await getProductCategories(type!);
       setProductCategories(data);
     } catch (error) {
       console.error("Error occured while fetching layout data:", error);
     }
   };
-  const { id } = useParams();
 
   const { type } = useParams();
 
   useEffect(() => {
     fetchData();
-  }, [id, type]);
+  }, [type]);
 
   return (
     <div>

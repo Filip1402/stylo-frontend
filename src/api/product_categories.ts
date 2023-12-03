@@ -1,7 +1,7 @@
 import { apiUrl } from "./api";
 
-export async function getProductCategories(id: string) {
-  const response = await fetch(`${apiUrl}/categories/${id}`);
+export async function getProductCategories(type: string) {
+  const response = await fetch(`${apiUrl}/categories/${type}`);
   const data = await response.json();
 
   if (!response.ok) {
