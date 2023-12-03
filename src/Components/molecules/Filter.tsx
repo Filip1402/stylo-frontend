@@ -22,6 +22,7 @@ const Filter = () => {
   const clearFilter = () => {
     // Log selected shoe sizes to the console
     console.log("Selected Shoe Sizes:", selectedShoeSizes);
+    console.log("Selected colors:", selectedColors);
   };
 
   return (
@@ -48,7 +49,7 @@ const Filter = () => {
           <div className="flex gap-6 flex-col items-center lg:items-baseline ">
             <h3>Veličina</h3>
             <ShoeSizeSelector
-              singleSelection={false}
+              singleSelection={true}
               setSelectedShoeSizes={setSelectedShoeSizes}
               isGrid={true}
               sizes={[
@@ -65,6 +66,7 @@ const Filter = () => {
               isGrid={true}
               setSelectedColors={setSelectedColors}
               selectedColors={selectedColors}
+              allowMoreSelections={false}
             />
           </div>
 

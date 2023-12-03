@@ -8,7 +8,7 @@ export interface Product {
   type: string;
   categories: string;
   variants: Array<ProductVariants>;
-
+  images?: Array<string>;
   available?: boolean;
 }
 

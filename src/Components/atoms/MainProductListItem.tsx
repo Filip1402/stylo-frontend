@@ -1,17 +1,32 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Product } from "../../common/types";
 import { Link } from "react-router-dom";
+import NoImage from "../../assets/images/no-image.jpg";
 
 const MainProductListItem: FC<{ product: Product }> = ({ product }) => {
+  useEffect(() => {
+    console.log("Ja dobijem proizvod", product);
+  });
+
+  const imageSource =
+    product.images && product.images[0] && product.images[0][0];
   return (
     <Link to="/">
       <div className="bg-white w-full p-7">
         <div className="bg-white h-256 w-full mb-4">
-          <img
-            src={product.images[0]}
-            alt="product image"
-            className="object-contain h-full w-full"
-          />
+          {imageSource ? (
+            <img
+              src={imageSource}
+              alt="product image"
+              className="object-contain h-full w-full"
+            />
+          ) : (
+            <img
+              src={NoImage}
+              alt="No Image"
+              className="object-contain h-full w-full"
+            />
+          )}
         </div>
         <div className="flex flex-col gap-2">
           <p className="text-lg text-grey-dark">{product.manufacturer}</p>

@@ -23,3 +23,39 @@ export async function getProduct(id: string) {
   }
   return data;
 }
+
+export async function getFilteredProducts(
+  gender: string,
+  category: string,
+  size?: number,
+  color?: string
+) {
+  let url = `${apiUrl}/products/filter?`;
+
+  if (gender) {
+    url += `gender=${gender}&`;
+  }
+
+  if (category) {
+    url += `category=${category}&`;
+  }
+
+  if (size) {
+    url += `size=${size}&`;
+  }
+
+  if (color) {
+    url += `color=${color}&`;
+  }
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.log(data.error);
+    return data.error;
+  } else {
+    console.log(data);
+  }
+
+  return data;
+}

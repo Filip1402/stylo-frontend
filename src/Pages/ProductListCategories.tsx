@@ -35,7 +35,9 @@ const ProductListCategories = () => {
         ) : (
           productCategories?.map((footware, index) => (
             <Link
-              to={`/proizvodi/${type}/${footware.name.toLowerCase()}`}
+              to={`/proizvodi/${type}/${footware.name
+                .slice(0, -1)
+                .toLowerCase()}`}
               key={index}
             >
               <FootwareType footwareType={footware} />

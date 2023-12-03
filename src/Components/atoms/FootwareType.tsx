@@ -17,7 +17,7 @@ const FootwareType: FC<{ footwareType: FootwareTypeProps }> = ({
         />
       </div>
       <h3 className="absolute bottom-1 left-0 m-0 pl-4 text-white w-full box-border font-bold text-2xl bg-black/60 pt-4 pb-4 my-2">
-        {footwareType.name}
+        {footwareType.name.slice(0, -1)}
       </h3>
     </div>
   );
