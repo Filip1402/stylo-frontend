@@ -45,9 +45,11 @@ export async function getFilteredProducts(
   }
 
   if (color) {
-    url += `color=${color}&`;
+    url += `color=${color}`;
   }
   const response = await fetch(url);
+
+  console.log("Moj url izgleda ovak", url);
   const data = await response.json();
 
   if (!response.ok) {

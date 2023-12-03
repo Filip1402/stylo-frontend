@@ -32,12 +32,26 @@ const ProductList = () => {
     }
   };
 
-  const fetchDataWithFilter = async (selectedShoeSizes: number[]) => {
+  const fetchDataWithFilter = async (
+    selectedShoeSizes?: number[],
+    selectedColors?: Color[]
+  ) => {
     try {
-      const data = await getFilteredProducts(gender!, type!, selectedShoeSizes);
+      const data = await getFilteredProducts(
+        gender!,
+        type!,
+        selectedShoeSizes.length > 0 ? selectedShoeSizes : undefined,
+        selectedColors.length > 0 ? selectedColors[0].name : undefined
+      );
       setFilteredProducts(data);
       console.log(filteredProducts);
-      console.log("Parametri su mi", gender, type, selectedShoeSizes);
+      console.log(
+        "Parametri su mi",
+        gender,
+        type,
+        selectedShoeSizes,
+        selectedColors
+      );
     } catch (error) {
       console.error("Error occurred while fetching layout data:", error);
     }
@@ -51,7 +65,7 @@ const ProductList = () => {
     console.log("Selected Colors:", selectedColors);
     console.log("Selected Shoe Sizes:", selectedShoeSizes);
 
-    fetchDataWithFilter(selectedShoeSizes);
+    fetchDataWithFilter(selectedShoeSizes, selectedColors);
 
     // Refetch data or update the component state as needed
   };
