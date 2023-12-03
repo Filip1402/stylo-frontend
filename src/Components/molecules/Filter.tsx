@@ -26,7 +26,8 @@ const Filter = () => {
 
   return (
     <div className="relative">
-      <div className="flex justify-end pr-6 flex-row">
+      <div className="flex justify-between items-center flex-row p-6 ">
+        <h3 className="text-xl font-bold">Kakvu odjeću tražite?</h3>
         <button
           className="flex gap-4 py-3 px-2.5 bg-grey-darker rounded-lg text-20 text-white-light"
           onClick={toggleFilter}

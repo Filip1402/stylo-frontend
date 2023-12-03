@@ -1,6 +1,6 @@
 import { List, ShoppingCart, X } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HeaderItem, LayoutData } from "../../common/types";
 import { FC } from "react";
 
@@ -22,6 +22,11 @@ const NavbarMobile: FC<{ layoutData: LayoutData | null }> = ({
     setOpenNav(false);
   };
 
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const isCategoriesPage = location.pathname.startsWith("/kategorije");
+  const isProductListPage = location.pathname.startsWith("/proizvodi");
+
   return (
     <div className="bg-white">
       <div className="flex justify-between items-center p-4">
@@ -40,12 +45,26 @@ const NavbarMobile: FC<{ layoutData: LayoutData | null }> = ({
         <div className="flex-grow ">
           {/*replace when backend will be ready*/}
           <h2 className="text-grey-dark font-medium text-lg pl-4">
-            Dynamic Header Text
+            {isHomePage
+              ? "Početna"
+              : isCategoriesPage
+              ? "Kategorije"
+              : isProductListPage
+              ? "Proizvodi"
+              : "Drugo"}
           </h2>
         </div>
       </div>
       <nav className={`p-4 ${openNav ? "block" : "hidden"}`} onClick={closeNav}>
         <ul className="list-none flex flex-col items-center gap-4">
+          <li>
+            <Link
+              to="/"
+              className="text-grey-dark text-lg font-semibold uppercase"
+            >
+              Početna
+            </Link>
+          </li>
           {navData?.map((item) => (
             <li key={item.id}>
               <Link
