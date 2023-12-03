@@ -4,6 +4,7 @@ import ShoeItemSmall from "../Components/atoms/ShoeItemSmall";
 import { HomepageData, Product } from "../common/types";
 import { getHomepage, getHomepageProducts } from "../api/products";
 import Partners from "../assets/images/partners.png";
+import { ThreeDots } from "react-loader-spinner";
 
 const Homepage = () => {
   const [homepageContent, setHomepageContent] = useState<HomepageData | null>(
@@ -107,7 +108,15 @@ const Homepage = () => {
           </div>
         </>
       ) : (
-        "Loading..."
+        <ThreeDots
+          height="80"
+          width="80"
+          radius="9"
+          color="#5F83DF"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{ justifyContent: "center" }}
+          visible={true}
+        />
       )}
     </div>
   );

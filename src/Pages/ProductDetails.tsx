@@ -8,6 +8,7 @@ import Button from "../Components/atoms/Button";
 import { getProduct } from "../api/products";
 import NoImage from "../assets/images/no-image.jpg";
 import { colors } from "../common/constants";
+import { ThreeDots } from "react-loader-spinner";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -91,6 +92,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     fetchData();
+
     console.log(findColor("narančasta"));
   }, []);
 
@@ -150,7 +152,6 @@ const ProductDetails = () => {
               selectedSizes={selectedSize}
             />
 
-            <p>{JSON.stringify(product.available)}</p>
             <div className="max-w-sm mt-4">
               <Button
                 onClick={() => {
@@ -166,7 +167,15 @@ const ProductDetails = () => {
           </div>
         </div>
       ) : (
-        <p>Loading...</p>
+        <ThreeDots
+          height="80"
+          width="80"
+          radius="9"
+          color="#5F83DF"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{ justifyContent: "center" }}
+          visible={true}
+        />
       )}
     </div>
   );
