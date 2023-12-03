@@ -27,7 +27,7 @@ export async function getProduct(id: string) {
 export async function getFilteredProducts(
   gender: string,
   category: string,
-  size?: number,
+  size?: Array<number>,
   color?: string
 ) {
   let url = `${apiUrl}/products/filter?`;
@@ -41,7 +41,7 @@ export async function getFilteredProducts(
   }
 
   if (size) {
-    url += `size=${size}&`;
+    url += `size=${size[0]}&`;
   }
 
   if (color) {

@@ -3,7 +3,7 @@ import Filter from "../Components/molecules/Filter";
 import { getFilteredProducts } from "../api/products";
 import { useParams } from "react-router";
 import MainProductListItem from "../Components/atoms/MainProductListItem";
-import { Product } from "../common/types";
+import { Color, Product } from "../common/types";
 
 const ProductList = () => {
   const { gender } = useParams();
@@ -17,6 +17,11 @@ const ProductList = () => {
     Product[] | undefined
   >();
 
+  useEffect(() => {
+    // This effect will be triggered whenever filteredProducts changes
+    console.log("Filtered products changed:", filteredProducts);
+  }, [filteredProducts]);
+
   const fetchData = async () => {
     try {
       const data = await getFilteredProducts(gender!, type!);
@@ -27,9 +32,33 @@ const ProductList = () => {
     }
   };
 
+  const fetchDataWithFilter = async (selectedShoeSizes: number[]) => {
+    try {
+      const data = await getFilteredProducts(gender!, type!, selectedShoeSizes);
+      setFilteredProducts(data);
+      console.log(filteredProducts);
+      console.log("Parametri su mi", gender, type, selectedShoeSizes);
+    } catch (error) {
+      console.error("Error occurred while fetching layout data:", error);
+    }
+  };
+
+  const applyFilter = (
+    selectedColors: Color[],
+    selectedShoeSizes: number[]
+  ) => {
+    // Perform actions with the selected colors and shoe sizes
+    console.log("Selected Colors:", selectedColors);
+    console.log("Selected Shoe Sizes:", selectedShoeSizes);
+
+    fetchDataWithFilter(selectedShoeSizes);
+
+    // Refetch data or update the component state as needed
+  };
+
   return (
     <div>
-      <Filter />
+      <Filter onApplyFilter={applyFilter} />
 
       <div className="grid grid-cols-4 gap-4 p-4 max-w-7xl mx-auto">
         {filteredProducts &&

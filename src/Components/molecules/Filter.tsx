@@ -5,7 +5,11 @@ import ColorItemSelector from "./ColorItemSelector";
 import { Color } from "../../common/types";
 import { colors } from "../../common/constants";
 
-const Filter = () => {
+const Filter = ({
+  onApplyFilter,
+}: {
+  onApplyFilter: (selectedColors: Color[], selectedShoeSizes: number[]) => void;
+}) => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedShoeSizes, setSelectedShoeSizes] = useState<number[]>([]);
   const [selectedColors, setSelectedColors] = useState<Color[]>([]);
@@ -13,6 +17,10 @@ const Filter = () => {
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
+  };
+
+  const applyFilter = () => {
+    onApplyFilter(selectedColors, selectedShoeSizes);
   };
 
   const closeFilter = () => {
@@ -81,6 +89,7 @@ const Filter = () => {
             <button
               className="bg-white-light flex flex-row justify-center items-center w-full rounded-full border border-none 
   cursor-pointer text-12 font-bold px-4 py-2 text-blue-dark hover:bg-grey-middle "
+              onClick={applyFilter}
             >
               PRIMJENI FILTER
             </button>
