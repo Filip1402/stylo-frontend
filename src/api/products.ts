@@ -74,3 +74,17 @@ export async function getFilteredProducts(
 
   return data;
 }
+
+export async function getHomepageProducts() {
+  const response = await fetch(`${apiUrl}/products/filter?category=tenisice`);
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.log(data.error);
+    return data.error;
+  } else {
+    console.log(data);
+  }
+  return data;
+}

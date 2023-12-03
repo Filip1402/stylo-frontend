@@ -11,19 +11,23 @@ const ShoeItemSmall: FC<{ product: Product }> = ({ product }) => {
 
   return (
     <div>
-      <Link to="/">
+      <Link to={`/proizvodi/${product.id}`}>
         {product ? (
           <img
-            src={product.images ? product.images[0][0] : NoImage}
+            src={
+              product.images && product.images[0]
+                ? product.images[0][0]
+                : NoImage
+            }
             alt="product image"
-            className="object-contain h-full w-full"
+            className="object-contain  w-full"
             onError={handleError}
           />
         ) : (
           <img
             src={NoImage}
             alt="No Image"
-            className="object-contain h-full w-full"
+            className="object-contain  w-full"
           />
         )}
         <p className="text-center">

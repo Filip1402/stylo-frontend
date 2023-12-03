@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import MainProductListItem from "../Components/atoms/MainProductListItem";
 import ShoeItemSmall from "../Components/atoms/ShoeItemSmall";
 import { HomepageData, Product } from "../common/types";
-import { getHomepage } from "../api/products";
+import { getHomepage, getHomepageProducts } from "../api/products";
 import Partners from "../assets/images/partners.png";
 
 const Homepage = () => {
   const [homepageContent, setHomepageContent] = useState<HomepageData | null>(
     null
   );
+  const [homepageProducts, setHomepageProducts] =
+    useState<Array<Product> | null>(null);
 
   const shopData = [
     { number: "45", text: "poslovnica" },
@@ -18,22 +20,13 @@ const Homepage = () => {
     { number: "180+", text: "modela cipela" },
   ];
 
-  const product: Product = {
-    manufacturer: "NIKE",
-    type: "tenisice",
-    model: "Air Max 270",
-    available: true,
-    price: 150.99,
-    images: [
-      "https://www.buzzsneakers.hr/files/images/slike-proizvoda/media/AH8/AH8050-002/images/AH8050-002.jpg",
-      "https://www.buzzsneakers.hr/files/images/slike-proizvoda/media/AH8/AH8050-002/images/AH8050-002.jpg",
-    ],
-  };
-
   const fetchData = async () => {
     try {
-      const data = await getHomepage();
-      setHomepageContent(data);
+      const cntent = await getHomepage();
+      const products = await getHomepageProducts();
+      setHomepageContent(cntent);
+      setHomepageProducts(products);
+      console.log(homepageProducts);
     } catch (error) {
       console.error("Error occured while fetching homepage data:", error);
     }
@@ -45,7 +38,7 @@ const Homepage = () => {
 
   return (
     <div className="w-full">
-      {homepageContent ? (
+      {homepageContent && homepageProducts ? (
         <>
           <div className="lg:h-[calc(100vh-104px)]">
             <img
@@ -54,8 +47,8 @@ const Homepage = () => {
               alt="hero-img"
             />
           </div>
-          <div className="flex flex-col md:mt-16 gap-16 py-4 lg:px-4 max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row gap-12 ">
+          <div className="flex flex-col gap-16 py-4 lg:px-4 max-w-7xl mx-auto md:mt-8 ">
+            <div className="flex flex-col-reverse md:flex-row gap-12 ">
               <div className="flex-1">
                 <img
                   className="w-full h-full object-cover"
@@ -65,18 +58,22 @@ const Homepage = () => {
               </div>
               <div className="flex-1">
                 <div className="grid grid-cols-2 gap-4 p-4 max-w-7xl mx-auto ">
-                  <ShoeItemSmall product={product} />
-                  <ShoeItemSmall product={product} />
-                  <ShoeItemSmall product={product} />
-                  <ShoeItemSmall product={product} />
+                  <ShoeItemSmall product={homepageProducts[0]} />
+                  <ShoeItemSmall product={homepageProducts[1]} />
+                  <ShoeItemSmall product={homepageProducts[2]} />
+                  <ShoeItemSmall product={homepageProducts[3]} />
                 </div>
               </div>
             </div>
-            <h3 className="font-bold text-2xl">Naši partneri</h3>
+          </div>
+          <div className="max-w-7xl mx-auto">
+            <h3 className="font-bold text-md p-4 lg:p-0  md:text-2xl text-grey-dark">
+              Naši partneri
+            </h3>
           </div>
           <div className="w-full">
             <img
-              className="w-full h-full object-cover mb-16"
+              className="w-full h-full object-cover mb-8 md:mb-16"
               src={Partners}
               alt="partners-img"
             />
@@ -87,23 +84,24 @@ const Homepage = () => {
             />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 max-w-7xl mx-auto">
-            <MainProductListItem product={product} />
-            <MainProductListItem product={product} />
-            <MainProductListItem product={product} />
-            <MainProductListItem product={product} />
+            <MainProductListItem product={homepageProducts[4]} />
+            <MainProductListItem product={homepageProducts[5]} />
+            <MainProductListItem product={homepageProducts[6]} />
+            <MainProductListItem product={homepageProducts[7]} />
           </div>
-          <div className="flex flex-column md:flex-row w-full justify-between p-4 max-w-7xl mx-auto">
+          <div className="flex flex-column w-full p-4 max-w-7xl mx-auto flex-wrap justify-center md:flex-row md:justify-between gap-4">
             {shopData.map((el, index) => (
               <div
                 key={index}
                 className="rounded-full flex 
-                justify-center items-center bg-blue-middle text-center w-[200px] h-[200px] flex-col"
-                style={{ borderRadius: "50%" }}
+                justify-center items-center bg-blue-middle text-center w-[120px] h-[120px] lg:w-[176px] lg:h-[176px] xl:w-[200px] xl:h-[200px] flex-col"
               >
-                <p className="font-bold text-5xl text-white-light">
+                <p className="font-bold text-3xl lg:text-5xl text-white-light">
                   {el.number}
                 </p>
-                <p className="font-bold text-3xl text-white-light">{el.text}</p>
+                <p className="lg:font-bold text-lg lg:text-3xl text-white-light">
+                  {el.text}
+                </p>
               </div>
             ))}
           </div>

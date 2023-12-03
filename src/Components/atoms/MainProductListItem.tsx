@@ -14,7 +14,7 @@ const MainProductListItem: FC<{ product: Product }> = ({ product }) => {
   };
 
   return (
-    <Link to="/">
+    <Link to={`/proizvodi/${product.id}`}>
       <div className="bg-white w-full p-4 md:p-7">
         <div className="bg-white h-256 w-full mb-4">
           {product ? (
@@ -37,7 +37,7 @@ const MainProductListItem: FC<{ product: Product }> = ({ product }) => {
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-lg text-grey-dark">{product.manufacturer}</p>
+          <p className="text-sm text-grey-dark">{product.manufacturer}</p>
           <h3 className="text-xl text-grey-darker">{product.model}</h3>
           {product.available ? (
             <h4 className="text-green-custom text-md md:text-xl">Dostupno</h4>
