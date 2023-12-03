@@ -1,16 +1,6 @@
-import { ChangeEvent, FC, HTMLInputTypeAttribute, useState } from "react";
+import { FC, useState } from "react";
 import { EyeSlash } from "@phosphor-icons/react";
-
-interface InputProps {
-  type?: HTMLInputTypeAttribute;
-  label?: string;
-  value?: string | number;
-  name: string;
-  placeholder: string;
-  error?: string;
-  disabled?: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
+import { InputProps } from "../../common/types";
 
 const Input: FC<InputProps> = ({
   type = "text",
@@ -22,7 +12,7 @@ const Input: FC<InputProps> = ({
   disabled = false,
   onChange,
 }) => {
-  let inputClasses = `border-2 border-grey-middle px-4 bg-white-light w-full rounded-md py-2 font-semibold focus:outline-none text-grey-dark`;
+  let inputClasses = `border-2 border-grey-middle px-4 bg-white-light w-full rounded-md py-3 font-semibold focus:outline-none text-grey-dark`;
 
   const [inputType, setInputType] = useState(type);
 

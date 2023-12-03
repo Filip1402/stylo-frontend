@@ -14,6 +14,14 @@ export default {
         "grey-darker": "#242424",
         "red-middle": "#7A0B0B",
         "disabled-text": "#8899C5",
+        "green-custom": "#0D873E",
+      },
+
+      height: {
+        500: "31rem",
+      },
+      outlineWidth: {
+        6: "6px",
       },
     },
   },
