@@ -11,7 +11,7 @@ const MainProductListItem: FC<{ product: Product }> = ({ product }) => {
   const imageSource =
     product.images && product.images[0] && product.images[0][0];
   return (
-    <Link to="/">
+    <Link to={`/proizvodi/${product.id}`}>
       <div className="bg-white w-full p-7">
         <div className="bg-white h-256 w-full mb-4">
           {imageSource ? (
