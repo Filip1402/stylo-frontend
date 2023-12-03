@@ -24,8 +24,10 @@ const Homepage = () => {
     model: "Air Max 270",
     available: true,
     price: 150.99,
-    image:
+    images: [
       "https://www.buzzsneakers.hr/files/images/slike-proizvoda/media/AH8/AH8050-002/images/AH8050-002.jpg",
+      "https://www.buzzsneakers.hr/files/images/slike-proizvoda/media/AH8/AH8050-002/images/AH8050-002.jpg",
+    ],
   };
 
   const fetchData = async () => {

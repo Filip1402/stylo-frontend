@@ -6,7 +6,7 @@ const ShoeItemSmall: FC<{ product: Product }> = ({ product }) => {
   return (
     <div>
       <Link to="/">
-        <img src={product.image} alt="product-image" className="w-full" />
+        <img src={product.images[0]} alt="product-image" className="w-full" />
         <p className="text-center">
           {product.manufacturer} {product.type} {product.model}
         </p>

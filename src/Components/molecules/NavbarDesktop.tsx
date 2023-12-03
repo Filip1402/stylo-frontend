@@ -14,14 +14,14 @@ const NavbarDesktop: FC<{ layoutData: LayoutData | null }> = ({
 
   return (
     <div className="bg-white p-6 flex items-center justify-between">
-      <Link to="/homepage">
+      <Link to="/">
         <img src={Logo} alt="" />
       </Link>
       <ul className="flex gap-6">
         {navData?.map((item) => (
           <Link
             key={item.id}
-            to={`/proizvodi&kategorija=${item.name.toLowerCase()}`}
+            to={`/kategorije/${item.name.toLowerCase()}`}
             className="uppercase font-bold text-grey-dark text-lg"
           >
             {item.name}

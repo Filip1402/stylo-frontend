@@ -1,12 +1,27 @@
-import { ChangeEvent, HTMLInputTypeAttribute } from "react";
+import { ChangeEvent, Dispatch, HTMLInputTypeAttribute } from "react";
 
 export interface Product {
+  id: string;
   manufacturer: string;
-  type: string;
   model: string;
-  image: string;
   price: number;
+  type: string;
+  categories: string;
+  variants: Array<ProductVariants>;
+  images?: Array<string>;
   available?: boolean;
+}
+
+export interface ProductVariants {
+  sku: string;
+  color: string;
+  images?: Array<string>;
+  sizes: Array<{ size: number; quantity: number }>;
+}
+
+export interface Color {
+  name: string;
+  hexValue: string;
 }
 
 export interface ButtonProps {
@@ -71,4 +86,34 @@ export interface InputProps {
   error?: string;
   disabled?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface ColorItemSelectorProps {
+  setSelectedColors: Dispatch<React.SetStateAction<Color[]>>;
+  isGrid?: boolean;
+  allowMoreSelections?: boolean;
+  selectedColors: Array<Color>;
+  colors: Array<Color>;
+}
+
+export interface ShoeSizeSelectorProps {
+  setSelectedShoeSizes: React.Dispatch<React.SetStateAction<number[]>>;
+  isGrid?: boolean;
+  singleSelection?: boolean;
+  sizes: Array<number>;
+  selectedSizes: Array<number>;
+}
+
+export interface FootwareTypeProps {
+  name: string;
+  url: string;
+}
+
+export interface CarouselProps {
+  images: Array<string>;
+}
+
+export interface ProductCategory {
+  name: string;
+  url: string;
 }

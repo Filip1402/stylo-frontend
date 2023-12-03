@@ -3,6 +3,8 @@ import NavbarDesktop from "./NavbarDesktop";
 import NavbarMobile from "./NavbarMobile";
 import { HeaderItem, LayoutData } from "../../common/types";
 
+let layoutHeader: Array<HeaderItem> | null = [];
+
 const Header: FC<{ layoutData: LayoutData | null }> = ({ layoutData }) => {
   const [isDesktop, setDesktop] = useState(window.innerWidth >= 1024);
 
@@ -10,6 +12,9 @@ const Header: FC<{ layoutData: LayoutData | null }> = ({ layoutData }) => {
 
   useEffect(() => {
     layoutData && setHeaderData(layoutData?.layout.header);
+    if (layoutData) {
+      layoutHeader = layoutData.layout.header;
+    }
   }, [layoutData]);
 
   const updateMedia = () => {
@@ -31,4 +36,5 @@ const Header: FC<{ layoutData: LayoutData | null }> = ({ layoutData }) => {
   );
 };
 
+export { layoutHeader };
 export default Header;
