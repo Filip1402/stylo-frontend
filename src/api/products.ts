@@ -10,7 +10,6 @@ export async function getLayout() {
   }
   return data;
 }
-import { apiUrl } from "./api";
 
 export async function getProduct(id: string) {
   const response = await fetch(`${apiUrl}/products/${id}`);

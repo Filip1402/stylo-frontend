@@ -21,7 +21,7 @@ const NavbarDesktop: FC<{ layoutData: LayoutData | null }> = ({
         {navData?.map((item) => (
           <Link
             key={item.id}
-            to={`/kategorije/${item.name.toLowerCase()}`}
+            to={`/kategorije/${item.id}/${item.name.toLowerCase()}`}
             className="uppercase font-bold text-grey-dark text-lg"
           >
             {item.name}

@@ -85,8 +85,8 @@ export interface ShoeSizeSelectorProps {
 }
 
 export interface FootwareTypeProps {
-  title: string;
-  image: string;
+  name: string;
+  url: string;
 }
 
 export interface CarouselProps {
