@@ -24,13 +24,17 @@ const ProductDetails = () => {
     try {
       const data = await getProduct(id!);
       setProduct(data);
-      // console.log(data);
       calculateColors(data.variants);
 
       setSelectedColor([]);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignoreS
       setSelectedColor((prev) => [
         ...prev,
-        { name: data.variants[0].color, hexValue: "#b799be" }, // TODO change later with dynamic colors
+        {
+          name: data.variants[0].color,
+          hexValue: findColor(data.variants[0].color.toLowerCase()),
+        },
       ]);
     } catch (error) {
       console.error("Error occured while fetching layout data:", error);
@@ -39,13 +43,19 @@ const ProductDetails = () => {
 
   const findColor = (name: string) => {
     const color = colors.find((item) => {
-      console.log(item);
       return item.name === name;
     });
     return color?.hexValue;
   };
 
-  const calculateColors = (variants) => {
+  const calculateColors = (
+    variants: Array<{
+      sku: string;
+      color: string;
+      images: Array<string>;
+      sizes: Array<number>;
+    }>
+  ) => {
     variants.map(
       (variant: {
         sku: string;
@@ -53,21 +63,23 @@ const ProductDetails = () => {
         images: Array<string>;
         sizes: Array<number>;
       }) => {
-        console.log(variant);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignoreS
         setProductColors((prev) => [
           ...prev,
           {
             name: variant.color,
             hexValue: findColor(variant.color.toLowerCase()),
-          }, // TODO change later with dynamic colors
+          },
         ]);
       }
     );
-    // console.log(productColors);
   };
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignoreS
 
   const calculateSizesBySelectedVariant = (
-    varColor,
+    varColor: Array<Color>,
     variants: {
       sku: string;
       color: string;
@@ -75,15 +87,14 @@ const ProductDetails = () => {
       sizes: Array<number>;
     }
   ) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignoreS
     const selected = variants.find((item) => {
-      console.log(varColor);
-
       return item.color === varColor[0].name;
     });
     console.log(`selected: ${JSON.stringify(selected)}`);
     setProductSizes([]);
     selected.sizes.map((el: { size: number; quantity: number }) => {
-      console.log(el);
       if (el.quantity > 0) {
         setProductSizes((prev) => [...prev, el.size]);
       }
@@ -92,17 +103,17 @@ const ProductDetails = () => {
 
   useEffect(() => {
     fetchData();
-
-    console.log(findColor("narančasta"));
   }, []);
 
   useEffect(() => {
     console.log(selectedColor);
     if (selectedColor.length > 0) {
-      console.log("promijena boje");
       setSelectedSize([]);
-      console.log(selectedSize);
-      calculateSizesBySelectedVariant(selectedColor, product?.variants);
+      if (product) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignoreS
+        calculateSizesBySelectedVariant(selectedColor, product.variants);
+      }
     }
   }, [selectedColor]);
 
@@ -113,7 +124,7 @@ const ProductDetails = () => {
           <div className="flex-1 md:max-w-[50%]">
             <Carousel
               images={
-                product.variants[0].images
+                product.variants && product.variants[0].images
                   ? product.variants[0].images
                   : [NoImage]
               }
