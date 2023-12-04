@@ -40,7 +40,7 @@ const ProductList = () => {
       const data = await getFilteredProducts(
         gender!,
         type!,
-        selectedShoeSizes.length > 0 ? selectedShoeSizes : undefined,
+        selectedShoeSizes.length > 0 ? selectedShoeSizes : undefined, //they can be undefined because they are not required
         selectedColors.length > 0 ? selectedColors[0].name : undefined
       );
       setFilteredProducts(data);
@@ -61,25 +61,30 @@ const ProductList = () => {
     selectedColors: Color[],
     selectedShoeSizes: number[]
   ) => {
-    // Perform actions with the selected colors and shoe sizes
     console.log("Selected Colors:", selectedColors);
     console.log("Selected Shoe Sizes:", selectedShoeSizes);
 
     fetchDataWithFilter(selectedShoeSizes, selectedColors);
-
-    // Refetch data or update the component state as needed
   };
 
   return (
     <div>
       <Filter onApplyFilter={applyFilter} />
-
-      <div className="grid grid-cols-4 gap-4 p-4 max-w-7xl mx-auto">
-        {filteredProducts &&
-          filteredProducts.map((product) => (
-            <MainProductListItem key={product.id} product={product} />
-          ))}
-      </div>
+      {filteredProducts === undefined ? (
+        <div className="max-w-7xl mx-auto p-4">
+          <h1>Loading...</h1>
+        </div>
+      ) : (
+        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 lg:max-w-7xl mx-auto">
+          {filteredProducts.length === 0 ? (
+            <h1 className="w-full">Nema proizvoda koji odgovaraju filteru</h1>
+          ) : (
+            filteredProducts.map((product) => (
+              <MainProductListItem key={product.id} product={product} />
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
 };
