@@ -7,7 +7,7 @@ export interface Product {
   price: number;
   type?: string;
   categories?: string;
-  variants: Array<ProductVariants>;
+  variants?: Array<ProductVariants>;
   images?: Array<string>;
   available?: boolean;
 }
@@ -69,12 +69,7 @@ export interface HomepageData {
       url: string;
     };
   }[];
-  products: {
-    name: string;
-    available: boolean;
-    price: number;
-    image: string;
-  }[];
+  products: Array<Product>;
 }
 
 export interface InputProps {

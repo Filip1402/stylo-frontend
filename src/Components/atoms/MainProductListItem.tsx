@@ -1,13 +1,9 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Product } from "../../common/types";
 import { Link } from "react-router-dom";
 import NoImage from "../../assets/images/no-image.jpg";
 
 const MainProductListItem: FC<{ product: Product }> = ({ product }) => {
-  useEffect(() => {
-    console.log("Ja dobijem proizvod", product);
-  });
-
   const handleError: React.ReactEventHandler<HTMLImageElement> = (event) => {
     event.currentTarget.onerror = null; // prevents looping
     event.currentTarget.src = NoImage;
@@ -21,7 +17,7 @@ const MainProductListItem: FC<{ product: Product }> = ({ product }) => {
             <img
               src={
                 product.images && product.images[0]
-                  ? product.images[0][0]
+                  ? product.images[0]
                   : NoImage
               }
               alt="product image"

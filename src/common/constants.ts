@@ -36,4 +36,8 @@ export const colors = [
     name: "crvena",
     hexValue: "#D40000",
   },
+  {
+    name: "roza",
+    hexValue: "#bd3391",
+  },
 ];

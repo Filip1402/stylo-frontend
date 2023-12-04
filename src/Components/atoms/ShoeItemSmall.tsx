@@ -16,7 +16,7 @@ const ShoeItemSmall: FC<{ product: Product }> = ({ product }) => {
           <img
             src={
               product.images && product.images[0]
-                ? product.images[0][0]
+                ? product.images[0]
                 : NoImage
             }
             alt="product image"

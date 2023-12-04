@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import MainProductListItem from "../Components/atoms/MainProductListItem";
 import ShoeItemSmall from "../Components/atoms/ShoeItemSmall";
-import { HomepageData, Product } from "../common/types";
-import { getHomepage, getHomepageProducts } from "../api/products";
+import { HomepageData } from "../common/types";
+import { getHomepage } from "../api/products";
 import Partners from "../assets/images/partners.png";
 import { ThreeDots } from "react-loader-spinner";
 
@@ -10,8 +10,6 @@ const Homepage = () => {
   const [homepageContent, setHomepageContent] = useState<HomepageData | null>(
     null
   );
-  const [homepageProducts, setHomepageProducts] =
-    useState<Array<Product> | null>(null);
 
   const shopData = [
     { number: "45", text: "poslovnica" },
@@ -23,11 +21,9 @@ const Homepage = () => {
 
   const fetchData = async () => {
     try {
-      const cntent = await getHomepage();
-      const products = await getHomepageProducts();
-      setHomepageContent(cntent);
-      setHomepageProducts(products);
-      console.log(homepageProducts);
+      const content = await getHomepage();
+      setHomepageContent(content);
+      console.log(content);
     } catch (error) {
       console.error("Error occured while fetching homepage data:", error);
     }
@@ -39,7 +35,7 @@ const Homepage = () => {
 
   return (
     <div className="w-full">
-      {homepageContent && homepageProducts ? (
+      {homepageContent ? (
         <>
           <div className="lg:h-[calc(100vh-104px)]">
             <img
@@ -59,10 +55,10 @@ const Homepage = () => {
               </div>
               <div className="flex-1">
                 <div className="grid grid-cols-2 gap-4 p-4 max-w-7xl mx-auto ">
-                  <ShoeItemSmall product={homepageProducts[0]} />
-                  <ShoeItemSmall product={homepageProducts[1]} />
-                  <ShoeItemSmall product={homepageProducts[2]} />
-                  <ShoeItemSmall product={homepageProducts[3]} />
+                  <ShoeItemSmall product={homepageContent.products[0]} />
+                  <ShoeItemSmall product={homepageContent.products[1]} />
+                  <ShoeItemSmall product={homepageContent.products[2]} />
+                  <ShoeItemSmall product={homepageContent.products[3]} />
                 </div>
               </div>
             </div>
@@ -85,10 +81,10 @@ const Homepage = () => {
             />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 max-w-7xl mx-auto">
-            <MainProductListItem product={homepageProducts[4]} />
-            <MainProductListItem product={homepageProducts[5]} />
-            <MainProductListItem product={homepageProducts[6]} />
-            <MainProductListItem product={homepageProducts[7]} />
+            <MainProductListItem product={homepageContent.products[4]} />
+            <MainProductListItem product={homepageContent.products[5]} />
+            <MainProductListItem product={homepageContent.products[6]} />
+            <MainProductListItem product={homepageContent.products[7]} />
           </div>
           <div className="flex flex-column w-full p-4 max-w-7xl mx-auto flex-wrap justify-center md:flex-row md:justify-between gap-4">
             {shopData.map((el, index) => (
