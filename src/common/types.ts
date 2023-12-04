@@ -5,9 +5,9 @@ export interface Product {
   manufacturer: string;
   model: string;
   price: number;
-  type: string;
-  categories: string;
-  variants: Array<ProductVariants>;
+  type?: string;
+  categories?: string;
+  variants?: Array<ProductVariants>;
   images?: Array<string>;
   available?: boolean;
 }
@@ -55,6 +55,21 @@ export interface LayoutData {
       };
     };
   };
+}
+
+export interface HomepageData {
+  images: {
+    "hero-img": {
+      url: string;
+    };
+    "content-image": {
+      url: string;
+    };
+    "bottom-banner-image": {
+      url: string;
+    };
+  }[];
+  products: Array<Product>;
 }
 
 export interface InputProps {

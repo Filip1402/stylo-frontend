@@ -23,6 +23,9 @@ export default {
       outlineWidth: {
         6: "6px",
       },
+      fontSize: {
+        xxs: "0.6rem",
+      },
     },
   },
   plugins: [],

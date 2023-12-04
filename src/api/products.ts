@@ -11,6 +11,19 @@ export async function getLayout() {
   return data;
 }
 
+export async function getHomepage() {
+  const response = await fetch(`${apiUrl}/homepage`);
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.log(data.error);
+    return data.error;
+  }
+  console.log(data);
+
+  return data;
+}
+
 export async function getProduct(id: string) {
   const response = await fetch(`${apiUrl}/products/${id}`);
   const data = await response.json();

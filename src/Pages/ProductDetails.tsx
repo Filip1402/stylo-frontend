@@ -7,6 +7,8 @@ import ShoeSizeSelector from "../Components/molecules/ShoeSizeSelector";
 import Button from "../Components/atoms/Button";
 import { getProduct } from "../api/products";
 import NoImage from "../assets/images/no-image.jpg";
+import { colors } from "../common/constants";
+import { ThreeDots } from "react-loader-spinner";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -22,38 +24,77 @@ const ProductDetails = () => {
     try {
       const data = await getProduct(id!);
       setProduct(data);
-      // console.log(data);
       calculateColors(data.variants);
 
       setSelectedColor([]);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignoreS
       setSelectedColor((prev) => [
         ...prev,
-        { name: data.variants[0].color, hexValue: "#b799be" }, // TODO change later with dynamic colors
+        {
+          name: data.variants[0].color,
+          hexValue: findColor(data.variants[0].color.toLowerCase()),
+        },
       ]);
     } catch (error) {
       console.error("Error occured while fetching layout data:", error);
     }
   };
 
-  const calculateColors = (variants) => {
-    variants.map((variant) => {
-      console.log(variant);
-      setProductColors((prev) => [
-        ...prev,
-        { name: variant.color, hexValue: "#8721a1" }, // TODO change later with dynamic colors
-      ]);
+  const findColor = (name: string) => {
+    const color = colors.find((item) => {
+      return item.name === name;
     });
-    // console.log(productColors);
+    return color?.hexValue;
   };
 
-  const calculateSizesBySelectedVariant = (varColor, variants) => {
+  const calculateColors = (
+    variants: Array<{
+      sku: string;
+      color: string;
+      images: Array<string>;
+      sizes: Array<number>;
+    }>
+  ) => {
+    variants.map(
+      (variant: {
+        sku: string;
+        color: string;
+        images: Array<string>;
+        sizes: Array<number>;
+      }) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignoreS
+        setProductColors((prev) => [
+          ...prev,
+          {
+            name: variant.color,
+            hexValue: findColor(variant.color.toLowerCase()),
+          },
+        ]);
+      }
+    );
+  };
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignoreS
+
+  const calculateSizesBySelectedVariant = (
+    varColor: Array<Color>,
+    variants: {
+      sku: string;
+      color: string;
+      images: Array<string>;
+      sizes: Array<number>;
+    }
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignoreS
     const selected = variants.find((item) => {
       return item.color === varColor[0].name;
     });
     console.log(`selected: ${JSON.stringify(selected)}`);
     setProductSizes([]);
-    selected.sizes.map((el) => {
-      console.log(el);
+    selected.sizes.map((el: { size: number; quantity: number }) => {
       if (el.quantity > 0) {
         setProductSizes((prev) => [...prev, el.size]);
       }
@@ -67,10 +108,12 @@ const ProductDetails = () => {
   useEffect(() => {
     console.log(selectedColor);
     if (selectedColor.length > 0) {
-      console.log("promijena boje");
       setSelectedSize([]);
-      console.log(selectedSize);
-      calculateSizesBySelectedVariant(selectedColor, product?.variants);
+      if (product) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignoreS
+        calculateSizesBySelectedVariant(selectedColor, product.variants);
+      }
     }
   }, [selectedColor]);
 
@@ -81,7 +124,7 @@ const ProductDetails = () => {
           <div className="flex-1 md:max-w-[50%]">
             <Carousel
               images={
-                product.variants[0].images
+                product.variants && product.variants[0].images
                   ? product.variants[0].images
                   : [NoImage]
               }
@@ -113,7 +156,6 @@ const ProductDetails = () => {
               selectedColors={selectedColor}
               allowMoreSelections={false}
             />
-            {JSON.stringify(productSizes)}
             <ShoeSizeSelector
               setSelectedShoeSizes={setSelectedSize}
               sizes={productSizes}
@@ -128,6 +170,7 @@ const ProductDetails = () => {
                   console.log(selectedColor[0].name);
                   console.log(selectedSize);
                 }}
+                disabled={!product.available}
               >
                 Dodaj u košaricu
               </Button>
@@ -135,7 +178,15 @@ const ProductDetails = () => {
           </div>
         </div>
       ) : (
-        <p>Loading...</p>
+        <ThreeDots
+          height="80"
+          width="80"
+          radius="9"
+          color="#5F83DF"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{ justifyContent: "center" }}
+          visible={true}
+        />
       )}
     </div>
   );
