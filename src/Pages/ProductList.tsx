@@ -4,6 +4,7 @@ import { getFilteredProducts } from "../api/products";
 import { useParams } from "react-router";
 import MainProductListItem from "../Components/atoms/MainProductListItem";
 import { Color, Product } from "../common/types";
+import { ThreeDots } from "react-loader-spinner";
 
 const ProductList = () => {
   const { gender } = useParams();
@@ -71,9 +72,15 @@ const ProductList = () => {
     <div>
       <Filter onApplyFilter={applyFilter} />
       {filteredProducts === undefined ? (
-        <div className="max-w-7xl mx-auto p-4">
-          <h1>Loading...</h1>
-        </div>
+        <ThreeDots
+          height="80"
+          width="80"
+          radius="9"
+          color="#5F83DF"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{ justifyContent: "center" }}
+          visible={true}
+        />
       ) : (
         <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 lg:max-w-7xl mx-auto">
           {filteredProducts.length === 0 ? (
