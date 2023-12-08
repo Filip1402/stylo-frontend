@@ -8,6 +8,8 @@ const Textarea: FC<TextareaProps> = ({
   placeholder,
   error,
   disabled = false,
+  rows,
+  cols,
   onChange,
 }) => {
   let inputClasses = `border-2 border-solid border-black px-4 bg-white-light w-full rounded-md py-3 font-semibold focus:outline-none text-grey-dark `;
@@ -21,11 +23,11 @@ const Textarea: FC<TextareaProps> = ({
       <label htmlFor={label} className="font-semibold text-lg text-grey-dark">
         {label}
       </label>
-      <div className="flex relative justify-center align-middle ">
+      <div className="flex h-full   ">
         <textarea
-          className={inputClasses}
-          rows={8}
-          cols={5}
+          className={`${inputClasses} h-full`}
+          rows={rows}
+          cols={cols}
           id={name}
           value={value}
           name={name}
