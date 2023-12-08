@@ -1,9 +1,7 @@
-import { FC, useState } from "react";
-import { EyeSlash } from "@phosphor-icons/react";
-import { InputProps } from "../../common/types";
+import { FC } from "react";
+import { TextareaProps } from "../../common/types";
 
-const Input: FC<InputProps> = ({
-  type = "text",
+const Textarea: FC<TextareaProps> = ({
   label = "",
   value,
   name,
@@ -13,12 +11,6 @@ const Input: FC<InputProps> = ({
   onChange,
 }) => {
   let inputClasses = `border-2 border-solid border-black px-4 bg-white-light w-full rounded-md py-3 font-semibold focus:outline-none text-grey-dark `;
-
-  const [inputType, setInputType] = useState(type);
-
-  const changeVisibility = () => {
-    setInputType(inputType == "text" ? "password" : "text");
-  };
 
   if (disabled) {
     inputClasses += `cursor-not-allowed bg-slate-200 text-disabled-text hover:bg-slate-200 border-slate-200 `;
@@ -30,9 +22,10 @@ const Input: FC<InputProps> = ({
         {label}
       </label>
       <div className="flex relative justify-center align-middle ">
-        <input
+        <textarea
           className={inputClasses}
-          type={inputType}
+          rows={8}
+          cols={5}
           id={name}
           value={value}
           name={name}
@@ -40,16 +33,6 @@ const Input: FC<InputProps> = ({
           onChange={onChange}
           disabled={disabled}
         />
-        {type == "password" && (
-          <div
-            className="absolute right-2 cursor-pointer h-full  flex items-center "
-            onClick={() => {
-              changeVisibility();
-            }}
-          >
-            <EyeSlash size={32} color="#5d5d5d" />
-          </div>
-        )}
       </div>
 
       {error && (
@@ -61,4 +44,4 @@ const Input: FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default Textarea;

@@ -26,6 +26,7 @@ const NavbarMobile: FC<{ layoutData: LayoutData | null }> = ({
   const isHomePage = location.pathname === "/";
   const isCategoriesPage = location.pathname.startsWith("/kategorije");
   const isProductListPage = location.pathname.startsWith("/proizvodi");
+  const isContactPage = location.pathname.startsWith("/kontakt");
 
   return (
     <div className="bg-white">
@@ -43,7 +44,6 @@ const NavbarMobile: FC<{ layoutData: LayoutData | null }> = ({
           color="black"
         />
         <div className="flex-grow ">
-          {/*replace when backend will be ready*/}
           <h2 className="text-grey-dark font-medium text-lg pl-4">
             {isHomePage
               ? "Početna"
@@ -51,6 +51,8 @@ const NavbarMobile: FC<{ layoutData: LayoutData | null }> = ({
               ? "Kategorije"
               : isProductListPage
               ? "Proizvodi"
+              : isContactPage
+              ? "Kontakt"
               : "Drugo"}
           </h2>
         </div>
