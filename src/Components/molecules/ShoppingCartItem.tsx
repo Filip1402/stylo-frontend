@@ -7,27 +7,8 @@ import { Trash } from "@phosphor-icons/react";
 import { ThreeDots } from "react-loader-spinner";
 import { notifySuccess } from "../atoms/Toast";
 
-const ShoppingCartItem = ({ productId, size, color, setCartItems }) => {
+const ShoppingCartItem = ({ product, setCartItems }) => {
   const [quantity, setQuantity] = useState(1);
-  const [product, setProduct] = useState<Product | null>(null);
-
-  useEffect(() => {
-    console.log(productId);
-
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const data = await getProduct(productId);
-      setProduct(data);
-    } catch (error) {
-      console.error(
-        "Error occured while fetching shopping cart product data:",
-        error
-      );
-    }
-  };
 
   const handleError: React.ReactEventHandler<HTMLImageElement> = (event) => {
     event.currentTarget.onerror = null; // prevents looping
@@ -38,7 +19,9 @@ const ShoppingCartItem = ({ productId, size, color, setCartItems }) => {
     setCartItems((prevCartItems) => {
       const updatedCartItems = prevCartItems.filter(
         (item) =>
-          item.id !== productId || item.size !== size || item.color !== color
+          item.id !== product.id ||
+          item.size !== product.size ||
+          item.color !== product.color
       );
 
       sessionStorage.setItem("cart", JSON.stringify(updatedCartItems));
@@ -54,7 +37,7 @@ const ShoppingCartItem = ({ productId, size, color, setCartItems }) => {
 
   return (
     <>
-      {product ? (
+      {
         <div className="flex items-center justify-between px-4">
           <Trash
             size={32}
@@ -62,27 +45,18 @@ const ShoppingCartItem = ({ productId, size, color, setCartItems }) => {
             onClick={handleRemove}
           />
           <div className="bg-white h-48 w-48 mb-4">
-            {product ? (
+            {
               <img
-                src={
-                  product.variants && product.variants[0].images
-                    ? product.variants[0].images[0]
-                    : NoImage
-                }
+                src={product.image}
                 alt="product image"
                 className="object-contain h-full w-full"
                 onError={handleError}
               />
-            ) : (
-              <img
-                src={NoImage}
-                alt="No Image"
-                className="object-contain h-full w-full"
-              />
-            )}
+            }
           </div>
           <p className="text-lg font-medium w-80">
-            {product.manufacturer} {product.model}, {color}, {size}
+            {product.manufacturer} {product.model}, {product.color},
+            {product.size}
           </p>
           <QuantityCalculator quantity={quantity} setQuantity={setQuantity} />
           <div className="flex flex-col items-end">
@@ -92,17 +66,7 @@ const ShoppingCartItem = ({ productId, size, color, setCartItems }) => {
             <p>1 kom = {product?.price} €</p>
           </div>
         </div>
-      ) : (
-        <ThreeDots
-          height="80"
-          width="80"
-          radius="9"
-          color="#5F83DF"
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{ justifyContent: "center" }}
-          visible={true}
-        />
-      )}
+      }
     </>
   );
 };
