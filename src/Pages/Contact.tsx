@@ -76,36 +76,34 @@ const Contact = () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   async function sendEmail(e) {
-    console.log("Pozivam se");
+    //console.log("Pozivam se");
     e.preventDefault();
     const isValid = validateForm();
 
     if (isValid) {
       try {
-        await emailjs.sendForm(
+        const templateParams = {
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          description: formData.description,
+          phone: formData.phone,
+        };
+
+        await emailjs.send(
           "service_rididoi",
           "template_a52kz4o",
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          form?.current,
+          templateParams,
           "uEv5XssPSUZAjRkfW"
         );
-        console.log("Uspjesno poslano");
         notifySuccess("Podrška uspješno kontaktirana!");
       } catch (err) {
         console.log("Doslo je do pogreske");
         notifyFailure("Došlo je do pogreške");
       }
     }
-
-    await emailjs.send(
-      "service_rididoi",
-      "template_a52kz4o",
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      form?.current,
-      "uEv5XssPSUZAjRkfW"
-    );
   }
   return (
     <div className="flex justify-center flex-col items-center px-4 relative py-4">
