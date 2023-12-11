@@ -7,9 +7,7 @@ import { Trash } from "@phosphor-icons/react";
 import { ThreeDots } from "react-loader-spinner";
 import { notifySuccess } from "../atoms/Toast";
 
-const ShoppingCartItem = ({ product, setCartItems }) => {
-  const [quantity, setQuantity] = useState(1);
-
+const ShoppingCartItem = ({ product, setCartItems, cartItems }) => {
   const handleError: React.ReactEventHandler<HTMLImageElement> = (event) => {
     event.currentTarget.onerror = null; // prevents looping
     event.currentTarget.src = NoImage;
@@ -31,13 +29,13 @@ const ShoppingCartItem = ({ product, setCartItems }) => {
     });
   };
 
-  useEffect(() => {
-    quantity == 0 && handleRemove();
-  }, [quantity]);
+  // useEffect(() => {
+  //   product.quantity == 0 && handleRemove();
+  // }, [product, product.quantity]);
 
   return (
     <>
-      {
+      {product ? (
         <div className="flex items-center justify-between px-4">
           <Trash
             size={32}
@@ -58,15 +56,21 @@ const ShoppingCartItem = ({ product, setCartItems }) => {
             {product.manufacturer} {product.model}, {product.color},
             {product.size}
           </p>
-          <QuantityCalculator quantity={quantity} setQuantity={setQuantity} />
+          <QuantityCalculator
+            setCartItems={setCartItems}
+            product={product}
+            cartItems={cartItems}
+          />
           <div className="flex flex-col items-end">
             <p className="w-full flex justify-end font-semibold text-xl">
-              {(product?.price * quantity).toFixed(2)} €
+              {(product?.price * product.quantity).toFixed(2)} €
             </p>
             <p>1 kom = {product?.price} €</p>
           </div>
         </div>
-      }
+      ) : (
+        <p>Loading</p>
+      )}
     </>
   );
 };

@@ -87,7 +87,11 @@ const ShoppingCart = () => {
       <hr />
       <div>
         {cartItems.map((item, index) => (
-          <ShoppingCartItem product={item} setCartItems={setCartItems} />
+          <ShoppingCartItem
+            product={item}
+            setCartItems={setCartItems}
+            cartItems={cartItems}
+          />
         ))}
       </div>
       <div className="flex items-end flex-col gap-8">

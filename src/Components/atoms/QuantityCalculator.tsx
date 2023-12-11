@@ -1,17 +1,39 @@
 import { useEffect } from "react";
 
-const QuantityCalculator = ({ quantity, setQuantity }) => {
+const QuantityCalculator = ({ setCartItems, product, cartItems }) => {
   const increment = () => {
-    setQuantity((prev: number) => prev + 1);
+    setCartItems((currItems) => {
+      return currItems.map((item) => {
+        if (
+          item.id == product.id &&
+          item.size == product.size &&
+          item.color == product.color
+        ) {
+          return { ...item, quantity: item.quantity + 1 }; // updatea samo zeljeni atribut u objektu
+        }
+        return item; // vraca sve ostale objekte u listi kao sto su bili prije
+      });
+    });
   };
 
   const decrement = () => {
-    quantity > 0 ? setQuantity((prev: number) => prev - 1) : null;
+    setCartItems((currItems) => {
+      return currItems.map((item) => {
+        if (
+          item.id == product.id &&
+          item.size == product.size &&
+          item.color == product.color
+        ) {
+          return { ...item, quantity: item.quantity - 1 }; // updatea samo zeljeni atribut u objektu
+        }
+        return item; // vraca sve ostale objekte u listi kao sto su bili prije
+      });
+    });
   };
 
   useEffect(() => {
     console.log("quantity change");
-  }, [quantity]);
+  }, [product.quantity]);
 
   return (
     <div className="grid grid-cols-3 w-fit">
@@ -22,7 +44,7 @@ const QuantityCalculator = ({ quantity, setQuantity }) => {
         -
       </div>
       <div className="flex justify-center items-center h-14 w-14 border-2 border-blue-dark bg-white font-bold text-xl">
-        {quantity}
+        {product.quantity}
       </div>
       <div
         onClick={increment}
