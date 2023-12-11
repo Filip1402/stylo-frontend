@@ -97,6 +97,15 @@ const Contact = () => {
         notifyFailure("Došlo je do pogreške");
       }
     }
+
+    await emailjs.send(
+      "service_rididoi",
+      "template_a52kz4o",
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      form?.current,
+      "uEv5XssPSUZAjRkfW"
+    );
   }
   return (
     <div className="flex justify-center flex-col items-center px-4 relative py-4">
