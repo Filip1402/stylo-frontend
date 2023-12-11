@@ -7,13 +7,7 @@ import { Trash } from "@phosphor-icons/react";
 import { ThreeDots } from "react-loader-spinner";
 import { notifySuccess } from "../atoms/Toast";
 
-const ShoppingCartItem = ({
-  productId,
-  size,
-  color,
-  cartItems,
-  setCartItems,
-}) => {
+const ShoppingCartItem = ({ productId, size, color, setCartItems }) => {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState<Product | null>(null);
 

@@ -145,6 +145,7 @@ const ProductDetails = () => {
       const currProduct = {
         id: product.id,
         quantity: 1,
+        price: product.price,
         color: selectedColor[0].name,
         size: selectedSize[0],
       };
