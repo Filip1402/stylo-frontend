@@ -9,6 +9,7 @@ import { getProduct } from "../api/products";
 import NoImage from "../assets/images/no-image.jpg";
 import { colors } from "../common/constants";
 import { ThreeDots } from "react-loader-spinner";
+import { notifyFailure, notifySuccess } from "../Components/atoms/Toast";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const ProductDetails = () => {
   const [selectedSize, setSelectedSize] = useState<number[]>([]);
   const [productSizes, setProductSizes] = useState<number[]>([]);
   const [productColors, setProductColors] = useState<Color[]>([]);
+  const [cartItems, setCartItems] = useState([]);
 
   const fetchData = async () => {
     setProductColors([]);
@@ -103,6 +105,15 @@ const ProductDetails = () => {
 
   useEffect(() => {
     fetchData();
+    const storedCart = sessionStorage.getItem("cart");
+
+    if (storedCart !== null) {
+      const items = JSON.parse(storedCart);
+      console.log("ima");
+      setCartItems(items);
+    } else {
+      console.log("nema"); // TODO remove this
+    }
   }, []);
 
   useEffect(() => {
@@ -116,6 +127,69 @@ const ProductDetails = () => {
       }
     }
   }, [selectedColor]);
+
+  useEffect(() => {
+    console.log(selectedColor);
+    if (selectedColor.length > 0) {
+      setSelectedSize([]);
+      if (product) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignoreS
+        calculateSizesBySelectedVariant(selectedColor, product.variants);
+      }
+    }
+  }, [selectedColor]);
+
+  const handleAddItem = () => {
+    if (product) {
+      const currProduct = {
+        id: product.id,
+        quantity: 1,
+        color: selectedColor[0].name,
+        size: selectedSize[0],
+      };
+
+      setCartItems((prevCartItems) => {
+        const newCartItems = [...prevCartItems, currProduct];
+        sessionStorage.setItem("cart", JSON.stringify(newCartItems));
+        return newCartItems;
+      });
+
+      notifySuccess(
+        `Uspješno dodan ${product.manufacturer} ${
+          product.model
+        } u košaricu (${selectedColor[0].name.toLowerCase()}, ${selectedSize})!`
+      );
+    }
+  };
+
+  const checkIfVariantIsInCart = () => {
+    let itemFound = false;
+    if (cartItems.length > 0) {
+      cartItems.forEach((element) => {
+        if (
+          element.id == product?.id &&
+          element.color == selectedColor[0].name &&
+          element.size == selectedSize[0]
+        ) {
+          notifyFailure("Ovaj se proizvod već nalazi u košarici!");
+          itemFound = true;
+          return;
+        }
+      });
+
+      if (!itemFound) {
+        handleAddItem();
+      }
+    } else {
+      console.log("kosarica je prazna");
+      handleAddItem();
+    }
+  };
+
+  const handleAddToCart = () => {
+    checkIfVariantIsInCart();
+  };
 
   return (
     <div className="max-w-7xl mx-auto flex flex-col w-full md:px-8 lg:px-0 py-8">
@@ -166,11 +240,9 @@ const ProductDetails = () => {
             <div className="max-w-sm mt-4">
               <Button
                 onClick={() => {
-                  console.log("added to cart");
-                  console.log(selectedColor[0].name);
-                  console.log(selectedSize);
+                  handleAddToCart();
                 }}
-                disabled={!product.available}
+                disabled={!product.available || selectedSize.length == 0}
               >
                 Dodaj u košaricu
               </Button>
