@@ -1,8 +1,42 @@
+import { useRef, useState } from "react";
 import Button from "../Components/atoms/Button";
 import Input from "../Components/atoms/Input";
 import Textarea from "../Components/atoms/Textarea";
+import { notifyFailure, notifySuccess } from "../Components/atoms/Toast";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
+  const [mail, setMail] = useState("");
+  const [description, setDescription] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const form = useRef();
+
+  async function sendEmail(e) {
+    console.log("Pozivam se");
+    e.preventDefault();
+
+    if (mail === "" || description === "") {
+      notifyFailure("Unesite email i tekst poruke!");
+      return;
+    }
+
+    try {
+      await emailjs.sendForm(
+        "service_rididoi",
+        "template_a52kz4o",
+        form?.current,
+        "uEv5XssPSUZAjRkfW"
+      );
+      console.log("Uspjesno poslano");
+      notifySuccess("Podrška uspješno kontaktirana!");
+    } catch (err) {
+      console.log("Doslo je do pogreske");
+      notifyFailure("Došlo je do pogreške");
+    }
+  }
   return (
     <div className="flex justify-center flex-col items-center px-4 relative py-4">
       <p className="text-xl text-center">Imate pitanja?</p>
@@ -12,40 +46,38 @@ const Contact = () => {
           id="loginForm"
           //onSubmit={handleSubmit}
           className="flex flex-col gap-3.5  lg:flex-row items-center"
+          ref={form}
+          onSubmit={sendEmail}
         >
-          <div className="flex flex-col gap-3.5 w-full ">
+          <div className="flex flex-col gap-5 w-full ">
             <Input
-              // value={userData.email}
-              // error={errors.email}
-              name="email"
-              onChange={() => {}}
-              type="email"
+              value={firstName}
+              name="first_name"
+              onChange={(e) => setFirstName(e.target.value)}
+              type="text"
               placeholder="Ime *"
             />
             <Input
-              // value={userData.password}
-              //  error={errors.password}
+              value={lastName}
+              name="last_name"
               type="text"
-              name="password"
-              onChange={() => {}}
+              onChange={(e) => setLastName(e.target.value)}
               placeholder="Prezime *"
             />
 
             <Input
-              // value={userData.password}
-              //  error={errors.password}
+              value={mail}
+              name="email"
+              onChange={(e) => setMail(e.target.value)}
               type="text"
-              name="password"
-              onChange={() => {}}
               placeholder="Email *"
             />
 
             <Input
-              // value={userData.password}
-              //  error={errors.password}
+              value={phone}
               type="text"
-              name="password"
-              onChange={() => {}}
+              name="phone"
+              onChange={(e) => setPhone(e.target.value)}
               placeholder="Telefon *"
             />
           </div>
@@ -54,10 +86,11 @@ const Contact = () => {
             <Textarea
               // value={userData.password}
               //  error={errors.password}
-              name="password"
-              onChange={() => {}}
+              value={description}
+              name="description"
+              onChange={(e) => setDescription(e.target.value)}
               placeholder="Poruka *"
-              rows={"8"}
+              rows={"10"}
               cols="5"
             />
           </div>
