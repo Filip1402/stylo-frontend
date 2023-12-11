@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const QuantityCalculator = ({ setCartItems, product, cartItems }) => {
+const QuantityCalculator = ({ setCartItems, product }) => {
   const increment = () => {
     setCartItems((currItems) => {
       return currItems.map((item) => {
@@ -30,10 +30,6 @@ const QuantityCalculator = ({ setCartItems, product, cartItems }) => {
       });
     });
   };
-
-  useEffect(() => {
-    console.log("quantity change");
-  }, [product.quantity]);
 
   return (
     <div className="grid grid-cols-3 w-fit">

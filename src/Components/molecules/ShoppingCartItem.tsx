@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import QuantityCalculator from "../atoms/QuantityCalculator";
-import { getProduct } from "../../api/products";
-import { Product } from "../../common/types";
 import NoImage from "../../assets/images/no-image.jpg";
 import { Trash } from "@phosphor-icons/react";
-import { ThreeDots } from "react-loader-spinner";
 import { notifySuccess } from "../atoms/Toast";
 
-const ShoppingCartItem = ({ product, setCartItems, cartItems }) => {
+const ShoppingCartItem = ({ product, setCartItems }) => {
   const handleError: React.ReactEventHandler<HTMLImageElement> = (event) => {
     event.currentTarget.onerror = null; // prevents looping
     event.currentTarget.src = NoImage;
@@ -29,9 +26,9 @@ const ShoppingCartItem = ({ product, setCartItems, cartItems }) => {
     });
   };
 
-  // useEffect(() => {
-  //   product.quantity == 0 && handleRemove();
-  // }, [product, product.quantity]);
+  useEffect(() => {
+    product.quantity == 0 && handleRemove();
+  }, [product.quantity]);
 
   return (
     <>
@@ -56,11 +53,7 @@ const ShoppingCartItem = ({ product, setCartItems, cartItems }) => {
             {product.manufacturer} {product.model}, {product.color},
             {product.size}
           </p>
-          <QuantityCalculator
-            setCartItems={setCartItems}
-            product={product}
-            cartItems={cartItems}
-          />
+          <QuantityCalculator setCartItems={setCartItems} product={product} />
           <div className="flex flex-col items-end">
             <p className="w-full flex justify-end font-semibold text-xl">
               {(product?.price * product.quantity).toFixed(2)} €
