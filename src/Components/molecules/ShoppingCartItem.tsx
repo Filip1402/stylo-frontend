@@ -5,18 +5,27 @@ import { Product } from "../../common/types";
 import NoImage from "../../assets/images/no-image.jpg";
 import { Trash } from "@phosphor-icons/react";
 import { ThreeDots } from "react-loader-spinner";
+import { notifySuccess } from "../atoms/Toast";
 
-const ShoppingCartItem = () => {
+const ShoppingCartItem = ({
+  productId,
+  size,
+  color,
+  cartItems,
+  setCartItems,
+}) => {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
+    console.log(productId);
+
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      const data = await getProduct("34b6a527-ac9f-4e59-aaa9-338397aa353a");
+      const data = await getProduct(productId);
       setProduct(data);
     } catch (error) {
       console.error(
@@ -32,13 +41,27 @@ const ShoppingCartItem = () => {
   };
 
   const handleRemove = () => {
-    console.log("todo remove");
+    setCartItems((prevCartItems) => {
+      const updatedCartItems = prevCartItems.filter(
+        (item) =>
+          item.id !== productId || item.size !== size || item.color !== color
+      );
+
+      sessionStorage.setItem("cart", JSON.stringify(updatedCartItems));
+
+      notifySuccess("Uklonjeno iz košarice!");
+      return updatedCartItems;
+    });
   };
+
+  useEffect(() => {
+    quantity == 0 && handleRemove();
+  }, [quantity]);
 
   return (
     <>
       {product ? (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between px-4">
           <Trash
             size={32}
             className="mr-4 cursor-pointer text-blue-dark"
@@ -64,10 +87,12 @@ const ShoppingCartItem = () => {
               />
             )}
           </div>
-          <p className="text-lg font-medium">NIKE Air Max 270, crne, 42</p>
+          <p className="text-lg font-medium w-80">
+            {product.manufacturer} {product.model}, {color}, {size}
+          </p>
           <QuantityCalculator quantity={quantity} setQuantity={setQuantity} />
           <div className="flex flex-col items-end">
-            <p className=" w-full flex justify-end font-semibold text-xl">
+            <p className="w-full flex justify-end font-semibold text-xl">
               {(product?.price * quantity).toFixed(2)} €
             </p>
             <p>1 kom = {product?.price} €</p>
