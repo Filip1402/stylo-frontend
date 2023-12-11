@@ -8,6 +8,7 @@ import { ThreeDots } from "react-loader-spinner";
 const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchDataAndUpdateCart();
@@ -43,11 +44,13 @@ const ShoppingCart = () => {
       );
       console.log(updatedItems);
       setCartItems(updatedItems);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     calculateTotalPrice();
+    sessionStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
   const calculateTotalPrice = () => {
@@ -69,14 +72,20 @@ const ShoppingCart = () => {
       </div>
       <hr />
       <div>
-        {cartItems.length > 0 ? (
-          cartItems.map((item, index) => (
-            <ShoppingCartItem
-              key={index}
-              product={item}
-              setCartItems={setCartItems}
-            />
-          ))
+        {!loading ? (
+          cartItems.length > 0 ? (
+            cartItems.map((item, index) => (
+              <ShoppingCartItem
+                key={index}
+                product={item}
+                setCartItems={setCartItems}
+              />
+            ))
+          ) : (
+            <p className="font-semibold text-2xl text-center mt-8">
+              Košarica je prazna.
+            </p>
+          )
         ) : (
           <ThreeDots
             height="80"
@@ -101,6 +110,7 @@ const ShoppingCart = () => {
               console.log(cartItems);
               console.log(totalPrice);
             }}
+            disabled={loading || cartItems.length == 0 || !cartItems}
           >
             Nastavi
           </Button>
