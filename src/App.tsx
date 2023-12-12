@@ -8,6 +8,7 @@ import Layout from "./Layout";
 import ProductList from "./Pages/ProductList";
 import ProductListCategories from "./Pages/ProductListCategories";
 import ProductDetails from "./Pages/ProductDetails";
+import Contact from "./Pages/Contact";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/proizvodi/:gender/:type" element={<ProductList />} />
           <Route path="/kategorije/:type" element={<ProductListCategories />} />
           <Route path="/proizvodi/:id" element={<ProductDetails />} />
+          <Route path="/kontakt" element={<Contact />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
