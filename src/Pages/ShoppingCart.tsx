@@ -4,9 +4,10 @@ import Button from "../Components/atoms/Button";
 import { getProduct } from "../api/products";
 import NoImage from "../assets/images/no-image.jpg";
 import { ThreeDots } from "react-loader-spinner";
+import { CartItem } from "../common/types";
 
 const ShoppingCart = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState<Array<CartItem>>([]);
   const [totalPrice, setTotalPrice] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +15,7 @@ const ShoppingCart = () => {
     fetchDataAndUpdateCart();
   }, []);
 
-  const fetchData = async (id) => {
+  const fetchData = async (id: string) => {
     try {
       const data = await getProduct(id);
       return data;
@@ -30,7 +31,7 @@ const ShoppingCart = () => {
       const items = JSON.parse(storedCart);
 
       const updatedItems = await Promise.all(
-        items.map(async (item) => {
+        items.map(async (item: CartItem) => {
           const productData = await fetchData(item.id);
 
           return {
@@ -50,13 +51,24 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     calculateTotalPrice();
-    sessionStorage.setItem("cart", JSON.stringify(cartItems));
+    const tempItems = cartItems.map((item) => {
+      return {
+        id: item.id,
+        quantity: item.quantity,
+        color: item.color,
+        size: item.size,
+      };
+    });
+
+    sessionStorage.setItem("cart", JSON.stringify(tempItems));
   }, [cartItems]);
 
   const calculateTotalPrice = () => {
     let total = 0;
-    cartItems.map((item) => {
-      total += item.price * item.quantity;
+    cartItems.map((item: CartItem) => {
+      if (item.price) {
+        total += item.price * item.quantity;
+      }
     });
     setTotalPrice(total.toFixed(2));
   };

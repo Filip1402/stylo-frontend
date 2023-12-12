@@ -1,34 +1,32 @@
-import React, { useEffect } from "react";
+import React, { FC } from "react";
 import QuantityCalculator from "../atoms/QuantityCalculator";
 import NoImage from "../../assets/images/no-image.jpg";
 import { Trash } from "@phosphor-icons/react";
 import { notifySuccess } from "../atoms/Toast";
+import { CartItem } from "../../common/types";
 
-const ShoppingCartItem = ({ product, setCartItems }) => {
+const ShoppingCartItem: FC<{
+  product: CartItem;
+  setCartItems: React.Dispatch<React.SetStateAction<Array<CartItem>>>;
+}> = ({ product, setCartItems }) => {
   const handleError: React.ReactEventHandler<HTMLImageElement> = (event) => {
     event.currentTarget.onerror = null; // prevents looping
     event.currentTarget.src = NoImage;
   };
 
   const handleRemove = () => {
-    setCartItems((prevCartItems) => {
+    setCartItems((prevCartItems: Array<CartItem>) => {
       const updatedCartItems = prevCartItems.filter(
-        (item) =>
+        (item: CartItem) =>
           item.id !== product.id ||
           item.size !== product.size ||
           item.color !== product.color
       );
 
-      sessionStorage.setItem("cart", JSON.stringify(updatedCartItems));
-
       notifySuccess("Uklonjeno iz košarice!");
       return updatedCartItems;
     });
   };
-
-  useEffect(() => {
-    product.quantity == 0 && handleRemove();
-  }, [product.quantity]);
 
   return (
     <>
@@ -56,7 +54,10 @@ const ShoppingCartItem = ({ product, setCartItems }) => {
           <QuantityCalculator setCartItems={setCartItems} product={product} />
           <div className="flex flex-col items-end">
             <p className="w-full flex justify-end font-semibold text-xl">
-              {(product?.price * product.quantity).toFixed(2)} €
+              {(product.price ? product.price * product.quantity : 0).toFixed(
+                2
+              )}{" "}
+              €
             </p>
             <p>1 kom = {product?.price} €</p>
           </div>

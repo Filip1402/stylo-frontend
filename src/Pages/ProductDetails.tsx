@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Color, Product } from "../common/types";
+import { CartItem, Color, Product } from "../common/types";
 import Carousel from "../Components/molecules/Carousel";
 import ColorItemSelector from "../Components/molecules/ColorItemSelector";
 import ShoeSizeSelector from "../Components/molecules/ShoeSizeSelector";
@@ -19,7 +19,7 @@ const ProductDetails = () => {
   const [selectedSize, setSelectedSize] = useState<number[]>([]);
   const [productSizes, setProductSizes] = useState<number[]>([]);
   const [productColors, setProductColors] = useState<Color[]>([]);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState<Array<CartItem>>([]);
 
   const fetchData = async () => {
     setProductColors([]);
@@ -94,7 +94,6 @@ const ProductDetails = () => {
     const selected = variants.find((item) => {
       return item.color === varColor[0].name;
     });
-    console.log(`selected: ${JSON.stringify(selected)}`);
     setProductSizes([]);
     selected.sizes.map((el: { size: number; quantity: number }) => {
       if (el.quantity > 0) {
@@ -109,10 +108,7 @@ const ProductDetails = () => {
 
     if (storedCart !== null) {
       const items = JSON.parse(storedCart);
-      console.log("ima");
       setCartItems(items);
-    } else {
-      console.log("nema"); // TODO remove this
     }
   }, []);
 
@@ -151,7 +147,15 @@ const ProductDetails = () => {
       };
 
       setCartItems((prevCartItems) => {
-        const newCartItems = [...prevCartItems, currProduct];
+        const newCartItems = [
+          ...prevCartItems,
+          {
+            id: currProduct.id,
+            quantity: currProduct.quantity,
+            color: currProduct.color,
+            size: currProduct.size,
+          },
+        ];
         sessionStorage.setItem("cart", JSON.stringify(newCartItems));
         return newCartItems;
       });
@@ -183,8 +187,7 @@ const ProductDetails = () => {
         handleAddItem();
       }
     } else {
-      console.log("kosarica je prazna");
-      handleAddItem();
+      handleAddItem(); // prazna kosarica
     }
   };
 

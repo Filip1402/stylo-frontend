@@ -1,6 +1,10 @@
-import { useEffect } from "react";
+import { FC } from "react";
+import { CartItem } from "../../common/types";
 
-const QuantityCalculator = ({ setCartItems, product }) => {
+const QuantityCalculator: FC<{
+  product: CartItem;
+  setCartItems: React.Dispatch<React.SetStateAction<Array<CartItem>>>;
+}> = ({ setCartItems, product }) => {
   const increment = () => {
     setCartItems((currItems) => {
       return currItems.map((item) => {
