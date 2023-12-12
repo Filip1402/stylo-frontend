@@ -77,9 +77,9 @@ const ShoppingCart = () => {
     <div className="max-w-7xl mx-auto flex  flex-col w-full md:px-8 lg:px-0 py-8">
       <div className="justify-end flex">
         <div className="flex justify-around w-[48rem] mb-4">
-          <p className="w-56">Proizvod</p>
-          <p className="w-48 text-center">Količina</p>
-          <p className="w-28 text-end">Cijena</p>
+          <p className="lg:w-56">Proizvod</p>
+          <p className="lg:w-48 text-center">Količina</p>
+          <p className="lg:w-28 text-end">Cijena</p>
         </div>
       </div>
       <hr />
@@ -116,7 +116,7 @@ const ShoppingCart = () => {
             Ukupno : {totalPrice} €
           </p>
         </div>
-        <div>
+        <div className="mr-4 lg:mr-2">
           <Button
             onClick={() => {
               console.log(cartItems);

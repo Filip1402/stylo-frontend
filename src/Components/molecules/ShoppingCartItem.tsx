@@ -31,13 +31,13 @@ const ShoppingCartItem: FC<{
   return (
     <>
       {product ? (
-        <div className="flex items-center justify-between px-4">
+        <div className="flex gap-2 lg:gap-4 items-center justify-between px-4">
           <Trash
             size={32}
             className="mr-4 cursor-pointer text-blue-dark"
             onClick={handleRemove}
           />
-          <div className="bg-white h-48 w-48 mb-4">
+          <div className="w-32 h-48 lg:w-48 mb-4 lg:bg-white">
             {
               <img
                 src={product.image}
@@ -47,19 +47,23 @@ const ShoppingCartItem: FC<{
               />
             }
           </div>
-          <p className="text-lg font-medium w-80">
-            {product.manufacturer} {product.model}, {product.color},
-            {product.size}
-          </p>
-          <QuantityCalculator setCartItems={setCartItems} product={product} />
-          <div className="flex flex-col items-end">
-            <p className="w-full flex justify-end font-semibold text-xl">
-              {(product.price ? product.price * product.quantity : 0).toFixed(
-                2
-              )}{" "}
-              €
+          <div className="flex flex-col lg:flex-row 0">
+            <p className="text-lg font-medium w-36 lg:w-96">
+              {product.manufacturer} {product.model}, {product.color},{" "}
+              {product.size}
             </p>
-            <p>1 kom = {product?.price} €</p>
+            <QuantityCalculator setCartItems={setCartItems} product={product} />
+            <div className="flex flex-col items-end lg:w-56 ">
+              <p className="w-full flex lg:justify-end font-semibold text-xl">
+                {(product.price ? product.price * product.quantity : 0).toFixed(
+                  2
+                )}{" "}
+                €
+              </p>
+              <p className="w-full flex lg:justify-end ml-24">
+                1 kom = {product?.price} €
+              </p>
+            </div>
           </div>
         </div>
       ) : (
