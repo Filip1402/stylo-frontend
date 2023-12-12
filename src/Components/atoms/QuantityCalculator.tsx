@@ -24,7 +24,10 @@ const QuantityCalculator = ({ setCartItems, product }) => {
           item.size == product.size &&
           item.color == product.color
         ) {
-          return { ...item, quantity: item.quantity - 1 }; // updatea samo zeljeni atribut u objektu
+          if (item.quantity > 1) {
+            // updatea samo zeljeni atribut u objektu, minimalni broj moze bit 1
+            return { ...item, quantity: item.quantity - 1 };
+          }
         }
         return item; // vraca sve ostale objekte u listi kao sto su bili prije
       });
