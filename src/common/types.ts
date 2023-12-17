@@ -94,6 +94,19 @@ export interface InputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
+export interface TextareaProps {
+  type?: HTMLInputTypeAttribute;
+  label?: string;
+  value?: string | number;
+  name: string;
+  placeholder: string;
+  error?: string;
+  disabled?: boolean;
+  rows?: string;
+  cols?: string;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
 export interface ColorItemSelectorProps {
   setSelectedColors: Dispatch<React.SetStateAction<Color[]>>;
   isGrid?: boolean;
