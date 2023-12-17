@@ -8,6 +8,7 @@ import Layout from "./Layout";
 import ProductList from "./Pages/ProductList";
 import ProductListCategories from "./Pages/ProductListCategories";
 import ProductDetails from "./Pages/ProductDetails";
+import ShoppingCart from "./Pages/ShoppingCart";
 import Contact from "./Pages/Contact";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route index element={<Homepage />} />
           <Route path="/proizvodi/:gender/:type" element={<ProductList />} />
           <Route path="/kategorije/:type" element={<ProductListCategories />} />
+          <Route path="/kosarica" element={<ShoppingCart />} />
           <Route path="/proizvodi/:id" element={<ProductDetails />} />
           <Route path="/kontakt" element={<Contact />} />
         </Route>

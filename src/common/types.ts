@@ -19,6 +19,17 @@ export interface ProductVariants {
   sizes: Array<{ size: number; quantity: number }>;
 }
 
+export interface CartItem {
+  id: string;
+  color: string;
+  size: number;
+  quantity: number;
+  price?: number;
+  manufacturer?: string;
+  model?: string;
+  image?: string;
+}
+
 export interface Color {
   name: string;
   hexValue: string;
