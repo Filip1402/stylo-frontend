@@ -8,6 +8,7 @@ import { FooterItem, LayoutData } from "../../common/types";
 import { FC, useEffect, useState } from "react";
 import { deleteUser } from "../../api/users";
 import { notifyFailure, notifySuccess } from "./Toast";
+import Swal from "sweetalert2";
 
 const Footer: FC<{ layoutData: LayoutData | null }> = ({ layoutData }) => {
   const [jwtToken, setJwtToken] = useState(localStorage.getItem("token"));
@@ -37,9 +38,23 @@ const Footer: FC<{ layoutData: LayoutData | null }> = ({ layoutData }) => {
 
   const handleClick = () => {
     if (jwtToken) {
-      const decoded = parseJwt(jwtToken);
-      console.log(decoded);
-      deleteAccount(decoded.sub);
+      Swal.fire({
+        title: "Jeste li sigurni?",
+        text: "Ova radnja je destruktivna!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Odustani",
+        confirmButtonText: "Da, obriši moj račun!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const decoded = parseJwt(jwtToken);
+          console.log(decoded);
+          deleteAccount(decoded.sub);
+          Swal.fire("Obrisano!", "Vaš je račun izbrisan.", "success");
+        }
+      });
     }
   };
 
