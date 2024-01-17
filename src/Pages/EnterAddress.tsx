@@ -2,7 +2,7 @@ import Input from "../Components/atoms/Input";
 import Button from "../Components/atoms/Button";
 import { useEffect, useState } from "react";
 import { redirectToStripe } from "../api/payment";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import { ThreeDots } from "react-loader-spinner";
 
 const EnterAddress = () => {
@@ -10,10 +10,6 @@ const EnterAddress = () => {
 
   const location = useLocation();
   const { cartItems } = location.state;
-
-  //tu se mora na backend ovom endpointu poslati sadrzaj kosarice
-
-  const navigate = useNavigate();
 
   const transformCartItems = (cartItems) => {
     return cartItems.map((item) => ({
@@ -25,13 +21,10 @@ const EnterAddress = () => {
 
   const fetchData = async () => {
     try {
-      console.log("Dobiveno je", cartItems); //ovo je dobro
-
       const transformedCartItems = transformCartItems(cartItems);
       console.log("Transformirani podaci su", transformedCartItems);
       const response = await redirectToStripe(transformedCartItems);
       setStripeUrl(response.stripe_url);
-      console.log("Url je", stripeUrl); //tu je dobar
     } catch (error) {
       console.error("Something is wrong:", error);
     }
