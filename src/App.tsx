@@ -11,6 +11,8 @@ import ProductDetails from "./Pages/ProductDetails";
 import ShoppingCart from "./Pages/ShoppingCart";
 import Contact from "./Pages/Contact";
 import EnterAddress from "./Pages/EnterAddress";
+import PaymentSuccess from "./Pages/PaymentSuccess";
+import PaymentFailure from "./Pages/PaymentFailure";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/proizvodi/:id" element={<ProductDetails />} />
           <Route path="/kontakt" element={<Contact />} />
           <Route path="/unesi-adresu" element={<EnterAddress />} />
+          <Route path="/success" element={<PaymentSuccess />} />
+          <Route path="/failure" element={<PaymentFailure />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

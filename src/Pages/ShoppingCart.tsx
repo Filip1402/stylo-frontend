@@ -124,11 +124,13 @@ const ShoppingCart = () => {
             onClick={() => {
               console.log(cartItems);
               console.log(totalPrice);
-              {
-                !token ? navigate("/login") : navigate("/unesi-adresu");
-              }
+              !token
+                ? navigate("/login")
+                : navigate("/unesi-adresu", {
+                    state: { cartItems, totalPrice },
+                  });
             }}
-            disabled={loading || cartItems.length == 0 || !cartItems}
+            disabled={loading || cartItems.length === 0 || !cartItems}
           >
             Nastavi
           </Button>
