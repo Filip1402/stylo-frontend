@@ -10,6 +10,7 @@ import ProductListCategories from "./Pages/ProductListCategories";
 import ProductDetails from "./Pages/ProductDetails";
 import ShoppingCart from "./Pages/ShoppingCart";
 import Contact from "./Pages/Contact";
+import EnterAddress from "./Pages/EnterAddress";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/kosarica" element={<ShoppingCart />} />
           <Route path="/proizvodi/:id" element={<ProductDetails />} />
           <Route path="/kontakt" element={<Contact />} />
+          <Route path="/unesi-adresu" element={<EnterAddress />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
