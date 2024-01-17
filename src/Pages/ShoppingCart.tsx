@@ -5,11 +5,14 @@ import { getProduct } from "../api/products";
 import NoImage from "../assets/images/no-image.jpg";
 import { ThreeDots } from "react-loader-spinner";
 import { CartItem } from "../common/types";
+import { useNavigate } from "react-router";
 
 const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState<Array<CartItem>>([]);
   const [totalPrice, setTotalPrice] = useState("");
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchDataAndUpdateCart();
@@ -121,8 +124,13 @@ const ShoppingCart = () => {
             onClick={() => {
               console.log(cartItems);
               console.log(totalPrice);
+              !token
+                ? navigate("/login")
+                : navigate("/unesi-adresu", {
+                    state: { cartItems, totalPrice },
+                  });
             }}
-            disabled={loading || cartItems.length == 0 || !cartItems}
+            disabled={loading || cartItems.length === 0 || !cartItems}
           >
             Nastavi
           </Button>
