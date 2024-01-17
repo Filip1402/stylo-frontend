@@ -8,17 +8,29 @@ const EnterAddress = () => {
   const [stripeUrl, setStripeUrl] = useState([]);
 
   const location = useLocation();
-  const { cartItems, totalPrice } = location.state;
+  const { cartItems } = location.state;
 
   //tu se mora na backend ovom endpointu poslati sadrzaj kosarice
 
   const navigate = useNavigate();
 
+  const transformCartItems = (cartItems) => {
+    return cartItems.map((item) => ({
+      name: `${item.manufacturer} ${item.model}`,
+      quantity: item.quantity,
+      priceInCents: item.price * 100,
+    }));
+  };
+
   const fetchData = async () => {
     try {
       console.log("Dobiveno je", cartItems); //ovo je dobro
-      const response = await redirectToStripe(cartItems);
-      setStripeUrl(response);
+
+      const transformedCartItems = transformCartItems(cartItems);
+      console.log("Transformirani podaci su", transformedCartItems);
+      const response = await redirectToStripe(transformedCartItems);
+      setStripeUrl(response.stripe_url);
+      console.log("Url je", stripeUrl); //tu je dobar
     } catch (error) {
       console.error("Something is wrong:", error);
     }
@@ -26,7 +38,8 @@ const EnterAddress = () => {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
+
   return (
     <div className="flex justify-center flex-col items-center px-4 gap-4 lg:gap-2 relative py-4">
       <p className="text-xl ">Unesi adresu dostave:</p>
@@ -55,8 +68,13 @@ const EnterAddress = () => {
       <div className="w-full max-w-[400px] flex-end flex px-6">
         <Button
           form="loginForm"
-          onClick={() => navigate(`${stripeUrl}`)}
-          type="submit"
+          onClick={() => {
+            console.log("Url je", stripeUrl);
+            if (stripeUrl) {
+              window.location.href = stripeUrl;
+            }
+          }}
+          type="button"
         >
           Nastavi na plaćanje
         </Button>
