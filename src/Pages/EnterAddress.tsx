@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { redirectToStripe } from "../api/payment";
 import { useLocation } from "react-router";
 import { ThreeDots } from "react-loader-spinner";
+import * as Yup from "yup";
 
 const EnterAddress = () => {
   const [stripeUrl, setStripeUrl] = useState([]);
@@ -11,9 +12,13 @@ const EnterAddress = () => {
   const location = useLocation();
   const { cartItems } = location.state;
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const transformCartItems = (cartItems) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return cartItems.map((item) => ({
-      name: `${item.manufacturer} ${item.model}`,
+      name: `${item.sku}`,
       quantity: item.quantity,
       priceInCents: item.price * 100,
     }));
@@ -34,6 +39,75 @@ const EnterAddress = () => {
     fetchData();
   }, []);
 
+  const [addressData, setAddressData] = useState({
+    streetName: "",
+    streetNumber: "",
+    postalCode: "",
+    city: "",
+    country: "HR",
+  });
+
+  const handleFormSubmit = () => {
+    const isValid = validateForm();
+
+    if (isValid) {
+      console.log("Url je", stripeUrl);
+      if (stripeUrl) {
+        localStorage.setItem("addressData", JSON.stringify(addressData));
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        window.location.href = stripeUrl;
+      }
+    }
+  };
+
+  const [errors, setErrors] = useState<Errors>({});
+  interface Errors {
+    [key: string]: string;
+  }
+
+  const validateForm = () => {
+    const validationSchema = Yup.object().shape({
+      streetName: Yup.string().required("Unesi ime ulice!"),
+      streetNumber: Yup.number()
+        .typeError("Unesi ispravan kućni broj")
+        .required("Unesi kućni broj!"),
+      postalCode: Yup.number()
+        .typeError("Unesi ispravan poštanski broj")
+        .required("Unesi poštanski broj!"),
+      city: Yup.string().required("Unesi grad!"),
+    });
+
+    try {
+      validationSchema.validateSync(addressData, { abortEarly: false });
+      setErrors({} as typeof errors);
+      return true;
+    } catch (error) {
+      const validationErrors: { [key: string]: string } = {};
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      error.inner.forEach((err) => {
+        validationErrors[err.path] = err.message;
+      });
+      setErrors(validationErrors);
+      return false;
+    }
+  };
+
+  const handleUserAddressChange = (name: string, value: string) => {
+    setAddressData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    name: string
+  ) => {
+    handleUserAddressChange(name, e.target.value);
+  };
+
   return (
     <>
       {stripeUrl.length > 0 ? (
@@ -42,33 +116,58 @@ const EnterAddress = () => {
 
           <div className=" bg-white-light w-full px-6  rounded-lg mb-2  z-10  flex flex-col lg:py-8 max-w-[1200px]">
             <form
-              id="loginForm"
+              id="addressForm"
               className="flex flex-col  lg:flex-row items-center"
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              // ref={form}
-              //  onSubmit={sendEmail}
             >
               <div className="flex flex-col gap-5 w-full ">
                 <Input
-                  // value={formData.firstName}
-                  name="firstName"
-                  onChange={() => {}}
+                  value={addressData.streetName}
+                  name="streetName"
+                  onChange={(e) => handleInputChange(e, "streetName")}
                   type="text"
-                  placeholder="Adresa *"
-                  // error={errors.firstName}
+                  placeholder="Ulica *"
+                  error={errors.streetName}
+                />
+                <Input
+                  value={addressData.streetNumber}
+                  name="streetNumber"
+                  onChange={(e) => handleInputChange(e, "streetNumber")}
+                  type="text"
+                  placeholder="Kućni broj *"
+                  error={errors.streetNumber}
+                />{" "}
+                <Input
+                  value={addressData.postalCode}
+                  name="postalCode"
+                  onChange={(e) => handleInputChange(e, "postalCode")}
+                  type="text"
+                  placeholder="Poštanski broj *"
+                  error={errors.postalCode}
+                />{" "}
+                <Input
+                  value={addressData.city}
+                  name="city"
+                  onChange={(e) => handleInputChange(e, "city")}
+                  type="text"
+                  placeholder="Grad *"
+                  error={errors.city}
+                />{" "}
+                <Input
+                  value={addressData.country}
+                  name="country"
+                  type="text"
+                  placeholder="Država *"
+                  onChange={() => {}}
+                  disabled
                 />
               </div>
             </form>
           </div>
           <div className="w-full max-w-[400px] flex-end flex px-6">
             <Button
-              form="loginForm"
+              form="addressForm"
               onClick={() => {
-                console.log("Url je", stripeUrl);
-                if (stripeUrl) {
-                  window.location.href = stripeUrl;
-                }
+                handleFormSubmit();
               }}
               type="button"
             >

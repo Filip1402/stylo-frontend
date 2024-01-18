@@ -28,6 +28,7 @@ export interface CartItem {
   manufacturer?: string;
   model?: string;
   image?: string;
+  sku?: string;
 }
 
 export interface Color {
@@ -109,6 +110,7 @@ export interface TextareaProps {
 
 export interface ColorItemSelectorProps {
   setSelectedColors: Dispatch<React.SetStateAction<Color[]>>;
+  setSelectedVariantIndex: Dispatch<React.SetStateAction<number>>;
   isGrid?: boolean;
   allowMoreSelections?: boolean;
   selectedColors: Array<Color>;

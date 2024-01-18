@@ -36,6 +36,7 @@ const ShoppingCart = () => {
       const updatedItems = await Promise.all(
         items.map(async (item: CartItem) => {
           const productData = await fetchData(item.id);
+          console.log(productData);
 
           return {
             ...item,
@@ -60,6 +61,7 @@ const ShoppingCart = () => {
         quantity: item.quantity,
         color: item.color,
         size: item.size,
+        sku: item.sku,
       };
     });
 
