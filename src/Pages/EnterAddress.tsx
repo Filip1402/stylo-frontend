@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { redirectToStripe } from "../api/payment";
 import { useLocation } from "react-router";
 import { ThreeDots } from "react-loader-spinner";
+import * as Yup from "yup";
 
 const EnterAddress = () => {
   const [stripeUrl, setStripeUrl] = useState([]);
@@ -42,6 +43,51 @@ const EnterAddress = () => {
     country: "HR",
   });
 
+  const handleFormSubmit = () => {
+    const isValid = validateForm();
+
+    if (isValid) {
+      console.log("Url je", stripeUrl);
+      if (stripeUrl) {
+        localStorage.setItem("addressData", JSON.stringify(addressData));
+        window.location.href = stripeUrl;
+      }
+    }
+  };
+
+  const [errors, setErrors] = useState<Errors>({});
+  interface Errors {
+    [key: string]: string;
+  }
+
+  const validateForm = () => {
+    const validationSchema = Yup.object().shape({
+      streetName: Yup.string().required("Unesi ime ulice!"),
+      streetNumber: Yup.number()
+        .typeError("Unesi ispravan kućni broj")
+        .required("Unesi kućni broj!"),
+      postalCode: Yup.number()
+        .typeError("Unesi ispravan poštanski broj")
+        .required("Unesi poštanski broj!"),
+      city: Yup.string().required("Unesi grad!"),
+    });
+
+    try {
+      validationSchema.validateSync(addressData, { abortEarly: false });
+      setErrors({} as typeof errors);
+      return true;
+    } catch (error) {
+      const validationErrors: { [key: string]: string } = {};
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      error.inner.forEach((err) => {
+        validationErrors[err.path] = err.message;
+      });
+      setErrors(validationErrors);
+      return false;
+    }
+  };
+
   const handleUserAddressChange = (name: string, value: string) => {
     setAddressData((prevData) => ({
       ...prevData,
@@ -74,7 +120,7 @@ const EnterAddress = () => {
                   onChange={(e) => handleInputChange(e, "streetName")}
                   type="text"
                   placeholder="Ulica *"
-                  // error={errors.firstName}
+                  error={errors.streetName}
                 />
                 <Input
                   value={addressData.streetNumber}
@@ -82,7 +128,7 @@ const EnterAddress = () => {
                   onChange={(e) => handleInputChange(e, "streetNumber")}
                   type="text"
                   placeholder="Kućni broj *"
-                  // error={errors.firstName}
+                  error={errors.streetNumber}
                 />{" "}
                 <Input
                   value={addressData.postalCode}
@@ -90,7 +136,7 @@ const EnterAddress = () => {
                   onChange={(e) => handleInputChange(e, "postalCode")}
                   type="text"
                   placeholder="Poštanski broj *"
-                  // error={errors.firstName}
+                  error={errors.postalCode}
                 />{" "}
                 <Input
                   value={addressData.city}
@@ -98,7 +144,7 @@ const EnterAddress = () => {
                   onChange={(e) => handleInputChange(e, "city")}
                   type="text"
                   placeholder="Grad *"
-                  // error={errors.firstName}
+                  error={errors.city}
                 />{" "}
                 <Input
                   value={addressData.country}
@@ -107,8 +153,6 @@ const EnterAddress = () => {
                   placeholder="Država *"
                   onChange={() => {}}
                   disabled
-
-                  // error={errors.firstName}
                 />
               </div>
             </form>
@@ -117,14 +161,7 @@ const EnterAddress = () => {
             <Button
               form="addressForm"
               onClick={() => {
-                console.log("Url je", stripeUrl);
-                if (stripeUrl) {
-                  localStorage.setItem(
-                    "addressData",
-                    JSON.stringify(addressData)
-                  );
-                  window.location.href = stripeUrl;
-                }
+                handleFormSubmit();
               }}
               type="button"
             >

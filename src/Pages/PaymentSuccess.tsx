@@ -2,7 +2,11 @@ import { useEffect } from "react";
 import { addOrder } from "../api/orders";
 
 const PaymentSuccess = () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const cartItems = JSON.parse(sessionStorage.getItem("cart"));
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const addressData = JSON.parse(localStorage.getItem("addressData"));
   const token = localStorage.getItem("token");
 
@@ -15,6 +19,8 @@ const PaymentSuccess = () => {
   const handleSubmit = async () => {
     try {
       const formattedData = {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         cart: cartItems.map((item) => ({
           id: item.sku,
           quantity: item.quantity,
@@ -27,7 +33,7 @@ const PaymentSuccess = () => {
           streetNumber: addressData.streetNumber,
           postalCode: addressData.postalCode,
           city: addressData.city,
-          country: addressData.country, //validacija na 2 slova
+          country: addressData.country,
         },
       };
 
