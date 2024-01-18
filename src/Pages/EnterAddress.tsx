@@ -13,7 +13,7 @@ const EnterAddress = () => {
 
   const transformCartItems = (cartItems) => {
     return cartItems.map((item) => ({
-      name: `${item.manufacturer} ${item.model}`,
+      name: `${item.sku}`,
       quantity: item.quantity,
       priceInCents: item.price * 100,
     }));

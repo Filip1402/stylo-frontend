@@ -137,6 +137,8 @@ const ProductDetails = () => {
   }, [selectedColor]);
 
   const handleAddItem = () => {
+    console.log(product);
+
     if (product) {
       const currProduct = {
         id: product.id,
@@ -144,9 +146,12 @@ const ProductDetails = () => {
         price: product.price,
         color: selectedColor[0].name,
         size: selectedSize[0],
+        sku: `${product.variants[0]?.sku}-${selectedSize[0]}`,
       };
 
       setCartItems((prevCartItems) => {
+        console.log(currProduct);
+
         const newCartItems = [
           ...prevCartItems,
           {
@@ -154,6 +159,7 @@ const ProductDetails = () => {
             quantity: currProduct.quantity,
             color: currProduct.color,
             size: currProduct.size,
+            sku: currProduct.sku,
           },
         ];
         sessionStorage.setItem("cart", JSON.stringify(newCartItems));

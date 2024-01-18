@@ -28,6 +28,7 @@ export interface CartItem {
   manufacturer?: string;
   model?: string;
   image?: string;
+  sku?: string;
 }
 
 export interface Color {

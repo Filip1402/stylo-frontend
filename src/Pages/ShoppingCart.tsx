@@ -36,6 +36,7 @@ const ShoppingCart = () => {
       const updatedItems = await Promise.all(
         items.map(async (item: CartItem) => {
           const productData = await fetchData(item.id);
+          console.log(productData);
 
           return {
             ...item,
@@ -43,6 +44,7 @@ const ShoppingCart = () => {
             manufacturer: productData.manufacturer,
             model: productData.model,
             image: productData.variants[0]?.images[0] || NoImage,
+            sku: `${productData.variants[0]?.sku}-${productData.variants[0]?.sizes[0].size}`,
           };
         })
       );
@@ -60,6 +62,7 @@ const ShoppingCart = () => {
         quantity: item.quantity,
         color: item.color,
         size: item.size,
+        sku: `${item.sku}-${item.size}`,
       };
     });
 
