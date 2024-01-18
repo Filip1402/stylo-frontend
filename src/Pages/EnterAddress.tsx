@@ -39,7 +39,7 @@ const EnterAddress = () => {
     streetNumber: "",
     postalCode: "",
     city: "",
-    country: "",
+    country: "HR",
   });
 
   const handleUserAddressChange = (name: string, value: string) => {
@@ -105,7 +105,8 @@ const EnterAddress = () => {
                   name="country"
                   type="text"
                   placeholder="Država *"
-                  onChange={(e) => handleInputChange(e, "country")}
+                  onChange={() => {}}
+                  disabled
 
                   // error={errors.firstName}
                 />

@@ -2,25 +2,18 @@ import { useEffect } from "react";
 import { addOrder } from "../api/orders";
 
 const PaymentSuccess = () => {
-  //tu se salje request na robijev endpoint kad ga napravi da se unese order u bazu
   const cartItems = JSON.parse(sessionStorage.getItem("cart"));
   const addressData = JSON.parse(localStorage.getItem("addressData"));
   const token = localStorage.getItem("token");
 
-  // Decode the token to get the payload
   const decodedToken = token ? JSON.parse(atob(token.split(".")[1])) : null;
 
-  // Access the "sub" (subject) from the payload
   const userId = decodedToken ? decodedToken.sub : null;
-
-  // Now, userId contains the user ID from the JWT
-  console.log("Na di mi treba stranici je id", userId); //ovo je isto dobro
-  console.log("Ja imam kosaricu", cartItems); //dobro je, jos addressData
-  console.log("A adresu isto koja je", addressData);
+  const userEmail = decodedToken ? decodedToken.email : null;
+  ("");
 
   const handleSubmit = async () => {
     try {
-      // Structure the data before calling addOrder
       const formattedData = {
         cart: cartItems.map((item) => ({
           id: item.sku,
@@ -28,19 +21,20 @@ const PaymentSuccess = () => {
         })),
 
         customerId: userId,
+        customerEmail: userEmail,
         shippingAddress: {
           streetName: addressData.streetName,
           streetNumber: addressData.streetNumber,
           postalCode: addressData.postalCode,
           city: addressData.city,
-          country: addressData.country,
+          country: addressData.country, //validacija na 2 slova
         },
       };
 
-      console.log("Podaci koji se šalju su", formattedData);
-
       const response = await addOrder(formattedData);
-      console.log("Od robija je odgovor", response);
+      console.log("Narudzba dodana", response);
+      localStorage.removeItem("addressData");
+      sessionStorage.removeItem("cart");
     } catch (error) {
       console.log("Nešto je pošlo po krivu", error);
     }
@@ -52,7 +46,8 @@ const PaymentSuccess = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-white-light">
       <h1 className="text-gray-dark font-bold text-6xl text-center">
-        Uspješno ste izvršili plaćanje!
+        Uspješno ste izvršili plaćanje te je vaša narudžba u obradi. Na mail
+        ćete dobiti račun.
       </h1>
     </div>
   );
