@@ -44,7 +44,7 @@ const ShoppingCart = () => {
             manufacturer: productData.manufacturer,
             model: productData.model,
             image: productData.variants[0]?.images[0] || NoImage,
-            sku: `${productData.variants[0]?.sku}-${productData.variants[0]?.sizes[0].size}`,
+            sku: productData.variants[0]?.sku,
           };
         })
       );

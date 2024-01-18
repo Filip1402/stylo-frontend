@@ -23,7 +23,7 @@ const PaymentSuccess = () => {
       // Structure the data before calling addOrder
       const formattedData = {
         cart: cartItems.map((item) => ({
-          id: item.id,
+          id: item.sku,
           quantity: item.quantity,
         })),
 
