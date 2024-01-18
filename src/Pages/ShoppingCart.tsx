@@ -44,7 +44,6 @@ const ShoppingCart = () => {
             manufacturer: productData.manufacturer,
             model: productData.model,
             image: productData.variants[0]?.images[0] || NoImage,
-            sku: `${productData.variants[0]?.sku}-${productData.variants[0]?.sizes[0].size}`,
           };
         })
       );
@@ -62,7 +61,7 @@ const ShoppingCart = () => {
         quantity: item.quantity,
         color: item.color,
         size: item.size,
-        sku: `${item.sku}-${item.size}`,
+        sku: item.sku,
       };
     });
 
