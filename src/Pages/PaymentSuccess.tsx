@@ -22,26 +22,25 @@ const PaymentSuccess = () => {
     try {
       // Structure the data before calling addOrder
       const formattedData = {
-        cartData: cartItems.map((item) => ({
+        cart: cartItems.map((item) => ({
           id: item.id,
           quantity: item.quantity,
         })),
-        addressData: {
-          customerId: userId,
-          shippingAddress: {
-            streetName: addressData.streetName,
-            streetNumber: addressData.streetNumber,
-            postalCode: addressData.postalCode,
-            city: addressData.city,
-            country: addressData.country,
-          },
+
+        customerId: userId,
+        shippingAddress: {
+          streetName: addressData.streetName,
+          streetNumber: addressData.streetNumber,
+          postalCode: addressData.postalCode,
+          city: addressData.city,
+          country: addressData.country,
         },
       };
 
       console.log("Podaci koji se šalju su", formattedData);
 
-      // const response = await addOrder(formattedData);
-      //console.log("Od robija je odgovor", response);
+      const response = await addOrder(formattedData);
+      console.log("Od robija je odgovor", response);
     } catch (error) {
       console.log("Nešto je pošlo po krivu", error);
     }
