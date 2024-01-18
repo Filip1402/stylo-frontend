@@ -34,6 +34,28 @@ const EnterAddress = () => {
     fetchData();
   }, []);
 
+  const [addressData, setAddressData] = useState({
+    streetName: "",
+    streetNumber: "",
+    postalCode: "",
+    city: "",
+    country: "",
+  });
+
+  const handleUserAddressChange = (name: string, value: string) => {
+    setAddressData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    name: string
+  ) => {
+    handleUserAddressChange(name, e.target.value);
+  };
+
   return (
     <>
       {stripeUrl.length > 0 ? (
@@ -42,20 +64,49 @@ const EnterAddress = () => {
 
           <div className=" bg-white-light w-full px-6  rounded-lg mb-2  z-10  flex flex-col lg:py-8 max-w-[1200px]">
             <form
-              id="loginForm"
+              id="addressForm"
               className="flex flex-col  lg:flex-row items-center"
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              // ref={form}
-              //  onSubmit={sendEmail}
             >
               <div className="flex flex-col gap-5 w-full ">
                 <Input
-                  // value={formData.firstName}
-                  name="firstName"
-                  onChange={() => {}}
+                  value={addressData.streetName}
+                  name="streetName"
+                  onChange={(e) => handleInputChange(e, "streetName")}
                   type="text"
-                  placeholder="Adresa *"
+                  placeholder="Ulica *"
+                  // error={errors.firstName}
+                />
+                <Input
+                  value={addressData.streetNumber}
+                  name="streetNumber"
+                  onChange={(e) => handleInputChange(e, "streetNumber")}
+                  type="text"
+                  placeholder="Kućni broj *"
+                  // error={errors.firstName}
+                />{" "}
+                <Input
+                  value={addressData.postalCode}
+                  name="postalCode"
+                  onChange={(e) => handleInputChange(e, "postalCode")}
+                  type="text"
+                  placeholder="Poštanski broj *"
+                  // error={errors.firstName}
+                />{" "}
+                <Input
+                  value={addressData.city}
+                  name="city"
+                  onChange={(e) => handleInputChange(e, "city")}
+                  type="text"
+                  placeholder="Grad *"
+                  // error={errors.firstName}
+                />{" "}
+                <Input
+                  value={addressData.country}
+                  name="country"
+                  type="text"
+                  placeholder="Država *"
+                  onChange={(e) => handleInputChange(e, "country")}
+
                   // error={errors.firstName}
                 />
               </div>
@@ -63,10 +114,14 @@ const EnterAddress = () => {
           </div>
           <div className="w-full max-w-[400px] flex-end flex px-6">
             <Button
-              form="loginForm"
+              form="addressForm"
               onClick={() => {
                 console.log("Url je", stripeUrl);
                 if (stripeUrl) {
+                  localStorage.setItem(
+                    "addressData",
+                    JSON.stringify(addressData)
+                  );
                   window.location.href = stripeUrl;
                 }
               }}
