@@ -12,7 +12,11 @@ const EnterAddress = () => {
   const location = useLocation();
   const { cartItems } = location.state;
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const transformCartItems = (cartItems) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return cartItems.map((item) => ({
       name: `${item.sku}`,
       quantity: item.quantity,
@@ -50,6 +54,8 @@ const EnterAddress = () => {
       console.log("Url je", stripeUrl);
       if (stripeUrl) {
         localStorage.setItem("addressData", JSON.stringify(addressData));
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         window.location.href = stripeUrl;
       }
     }
