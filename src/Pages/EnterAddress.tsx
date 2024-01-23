@@ -18,7 +18,7 @@ const EnterAddress = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return cartItems.map((item) => ({
-      name: `${item.sku}`,
+      name: `${item.manufacturer} ${item.model}`,
       quantity: item.quantity,
       priceInCents: item.price * 100,
     }));
