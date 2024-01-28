@@ -37,8 +37,8 @@ export async function validateAccount(token: string | undefined | null) {
   const data = await response.json();
 
   if (!response.ok) {
-    console.log(`response.status: ${response.status}`);
-    console.log("Token u metodi je", token);
+    // console.log(`response.status: ${response.status}`);
+    //console.log("Token u metodi je", token);
   }
 
   return data;
@@ -56,7 +56,7 @@ export async function loginUser(userData: object) {
   const data = await response.json();
 
   if (!response.ok) {
-    console.log(data.error);
+    // console.log(data.error);
     return data.error;
   }
 
@@ -74,7 +74,7 @@ export async function deleteUser(userId: string) {
   const data = await response.json();
 
   if (!response.ok) {
-    console.log(data.error);
+    //console.log(data.error);
     return data.error;
   }
 

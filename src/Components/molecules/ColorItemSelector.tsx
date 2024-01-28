@@ -31,7 +31,7 @@ const ColorItemSelector: FC<ColorItemSelectorProps> = ({
   };
 
   useEffect(() => {
-    console.log(selectedColors);
+    // console.log(selectedColors);
   }, [selectedColors]);
 
   return (

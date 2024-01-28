@@ -5,7 +5,7 @@ const FootwareType: FC<{ footwareType: FootwareTypeProps }> = ({
   footwareType,
 }) => {
   useEffect(() => {
-    console.log("Podaci u kartici su", footwareType);
+    // console.log("Podaci u kartici su", footwareType);
   });
   return (
     <div className="relative h-80 lg:h-[350px] xl:h-500">

@@ -11,10 +11,10 @@ export async function addOrder(data) {
   const responseData = await response.json();
 
   if (!response.ok) {
-    console.log(responseData.error);
+    // console.log(responseData.error);
     return responseData.error;
   } else {
-    console.log(responseData);
+    //console.log(responseData);
   }
 
   return responseData;

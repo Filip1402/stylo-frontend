@@ -23,7 +23,7 @@ const Homepage = () => {
     try {
       const content = await getHomepage();
       setHomepageContent(content);
-      console.log(content);
+      //console.log(content);
     } catch (error) {
       console.error("Error occured while fetching homepage data:", error);
     }

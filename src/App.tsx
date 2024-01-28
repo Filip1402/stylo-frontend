@@ -4,7 +4,7 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Homepage from "./Pages/Homepage";
 import AccountVerification from "./Pages/AccountVerification";
-import Layout from "./Layout";
+import Layout from "./Components/templatess/Layout";
 import ProductList from "./Pages/ProductList";
 import ProductListCategories from "./Pages/ProductListCategories";
 import ProductDetails from "./Pages/ProductDetails";
@@ -27,7 +27,7 @@ function App() {
           <Route path="/kontakt" element={<Contact />} />
           <Route path="/unesi-adresu" element={<EnterAddress />} />
           <Route path="/success" element={<PaymentSuccess />} />
-          <Route path="/failure" element={<PaymentFailure />} />
+          <Route path="/cancel" element={<PaymentFailure />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

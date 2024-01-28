@@ -13,6 +13,7 @@ const Filter = ({
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedShoeSizes, setSelectedShoeSizes] = useState<number[]>([]);
   const [selectedColors, setSelectedColors] = useState<Color[]>([]);
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
@@ -30,8 +31,8 @@ const Filter = ({
     setSelectedShoeSizes([]);
     setSelectedColors([]);
 
-    console.log("Cleared Shoe Sizes:", selectedShoeSizes);
-    console.log("Cleared Colors:", selectedColors);
+    // console.log("Cleared Shoe Sizes:", selectedShoeSizes);
+    //console.log("Cleared Colors:", selectedColors);
   };
 
   return (
@@ -76,6 +77,7 @@ const Filter = ({
               setSelectedColors={setSelectedColors}
               selectedColors={selectedColors}
               allowMoreSelections={false}
+              setSelectedVariantIndex={setSelectedVariantIndex}
             />
           </div>
 

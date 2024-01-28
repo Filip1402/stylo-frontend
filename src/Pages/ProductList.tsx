@@ -20,14 +20,14 @@ const ProductList = () => {
 
   useEffect(() => {
     // This effect will be triggered whenever filteredProducts changes
-    console.log("Filtered products changed:", filteredProducts);
+    // console.log("Filtered products changed:", filteredProducts);
   }, [filteredProducts]);
 
   const fetchData = async () => {
     try {
       const data = await getFilteredProducts(gender!, type!);
       setFilteredProducts(data);
-      console.log(filteredProducts);
+      // console.log(filteredProducts);
     } catch (error) {
       console.error("Error occured while fetching layout data:", error);
     }
@@ -45,14 +45,14 @@ const ProductList = () => {
         selectedColors.length > 0 ? selectedColors[0].name : undefined
       );
       setFilteredProducts(data);
-      console.log(filteredProducts);
-      console.log(
-        "Parametri su mi",
-        gender,
-        type,
-        selectedShoeSizes,
-        selectedColors
-      );
+      // console.log(filteredProducts);
+      // console.log(
+      //   "Parametri su mi",
+      //   gender,
+      //   type,
+      //   selectedShoeSizes,
+      //   selectedColors
+      // );
     } catch (error) {
       console.error("Error occurred while fetching layout data:", error);
     }
@@ -62,8 +62,8 @@ const ProductList = () => {
     selectedColors: Color[],
     selectedShoeSizes: number[]
   ) => {
-    console.log("Selected Colors:", selectedColors);
-    console.log("Selected Shoe Sizes:", selectedShoeSizes);
+    // console.log("Selected Colors:", selectedColors);
+    // console.log("Selected Shoe Sizes:", selectedShoeSizes);
 
     fetchDataWithFilter(selectedShoeSizes, selectedColors);
   };

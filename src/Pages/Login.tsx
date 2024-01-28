@@ -58,12 +58,12 @@ const Login = () => {
         } else if (response == "Email address of account not verified!") {
           notifyFailure("Račun nije verificiran. Molimo verificirajte ga.");
         } else {
-          console.log(response);
+          // console.log(response);
           localStorage.setItem("token", response.accessToken);
           navigate("/");
         }
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     }
   };
