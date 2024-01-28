@@ -1,6 +1,6 @@
 import { useEffect, useState, FC } from "react";
-import NavbarDesktop from "./NavbarDesktop";
-import NavbarMobile from "./NavbarMobile";
+import NavbarDesktop from "../molecules/NavbarDesktop";
+import NavbarMobile from "../molecules/NavbarMobile";
 import { HeaderItem, LayoutData } from "../../common/types";
 
 const Header: FC<{ layoutData: LayoutData | null }> = ({ layoutData }) => {

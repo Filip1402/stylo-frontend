@@ -36,7 +36,7 @@ const ShoppingCart = () => {
       const updatedItems = await Promise.all(
         items.map(async (item: CartItem) => {
           const productData = await fetchData(item.id);
-          console.log(productData);
+          // console.log(productData);
 
           return {
             ...item,
@@ -47,7 +47,7 @@ const ShoppingCart = () => {
           };
         })
       );
-      console.log(updatedItems);
+      // console.log(updatedItems);
       setCartItems(updatedItems);
       setLoading(false);
     }
@@ -124,8 +124,8 @@ const ShoppingCart = () => {
         <div className="mr-4 lg:mr-2">
           <Button
             onClick={() => {
-              console.log(cartItems);
-              console.log(totalPrice);
+              // console.log(cartItems);
+              //console.log(totalPrice);
               !token
                 ? navigate("/login")
                 : navigate("/unesi-adresu", {

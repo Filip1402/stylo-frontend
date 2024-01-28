@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { FooterItem, LayoutData } from "../../common/types";
 import { FC, useEffect, useState } from "react";
 import { deleteUser } from "../../api/users";
-import { notifyFailure, notifySuccess } from "./Toast";
+import { notifyFailure, notifySuccess } from "../atoms/Toast";
 import Swal from "sweetalert2";
 
 const Footer: FC<{ layoutData: LayoutData | null }> = ({ layoutData }) => {
@@ -50,7 +50,7 @@ const Footer: FC<{ layoutData: LayoutData | null }> = ({ layoutData }) => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           const decoded = parseJwt(jwtToken);
-          console.log(decoded);
+          // console.log(decoded);
           deleteAccount(decoded.sub);
           Swal.fire("Obrisano!", "Vaš je račun izbrisan.", "success");
         }

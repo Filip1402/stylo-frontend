@@ -4,7 +4,7 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Homepage from "./Pages/Homepage";
 import AccountVerification from "./Pages/AccountVerification";
-import Layout from "./Layout";
+import Layout from "./Components/templatess/Layout";
 import ProductList from "./Pages/ProductList";
 import ProductListCategories from "./Pages/ProductListCategories";
 import ProductDetails from "./Pages/ProductDetails";

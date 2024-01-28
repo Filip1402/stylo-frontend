@@ -30,8 +30,8 @@ const Filter = ({
     setSelectedShoeSizes([]);
     setSelectedColors([]);
 
-    console.log("Cleared Shoe Sizes:", selectedShoeSizes);
-    console.log("Cleared Colors:", selectedColors);
+    // console.log("Cleared Shoe Sizes:", selectedShoeSizes);
+    // console.log("Cleared Colors:", selectedColors);
   };
 
   return (
