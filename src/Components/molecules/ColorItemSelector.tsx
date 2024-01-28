@@ -7,12 +7,16 @@ const ColorItemSelector: FC<ColorItemSelectorProps> = ({
   selectedColors,
   colors,
   allowMoreSelections = true,
+  setSelectedVariantIndex,
 }) => {
   const isAlreadySelected = (el: Color) => {
     return selectedColors.some((item) => item.name === el.name);
   };
 
-  const handleClick = (el: Color) => {
+  const handleClick = (el: Color, index: number) => {
+    setSelectedVariantIndex(index);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignoreS
     setSelectedColors((prev) => {
       if (isAlreadySelected(el)) {
         return prev.filter((item) => item.name !== el.name);
@@ -32,7 +36,7 @@ const ColorItemSelector: FC<ColorItemSelectorProps> = ({
 
   return (
     <div className={`gap-4 ${isGrid ? "grid grid-cols-3" : "flex"}`}>
-      {colors.map((el) => (
+      {colors.map((el, index) => (
         <div
           key={el.name}
           className={`w-10 h-10 cursor-pointer rounded-lg border border-black 
@@ -42,7 +46,7 @@ const ColorItemSelector: FC<ColorItemSelectorProps> = ({
               : ""
           }`}
           style={{ backgroundColor: el.hexValue }}
-          onClick={() => handleClick(el)}
+          onClick={() => handleClick(el, index)}
         ></div>
       ))}
     </div>

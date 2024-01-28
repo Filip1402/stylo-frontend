@@ -20,6 +20,7 @@ const ProductDetails = () => {
   const [productSizes, setProductSizes] = useState<number[]>([]);
   const [productColors, setProductColors] = useState<Color[]>([]);
   const [cartItems, setCartItems] = useState<Array<CartItem>>([]);
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
 
   const fetchData = async () => {
     setProductColors([]);
@@ -137,6 +138,8 @@ const ProductDetails = () => {
   }, [selectedColor]);
 
   const handleAddItem = () => {
+    console.log(product);
+
     if (product) {
       const currProduct = {
         id: product.id,
@@ -144,16 +147,23 @@ const ProductDetails = () => {
         price: product.price,
         color: selectedColor[0].name,
         size: selectedSize[0],
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignoreS
+        sku: `${product.variants[selectedVariantIndex]?.sku}-${selectedSize[0]}`, // tu promijeni
       };
 
       setCartItems((prevCartItems) => {
+        console.log(currProduct);
+
         const newCartItems = [
           ...prevCartItems,
+
           {
             id: currProduct.id,
             quantity: currProduct.quantity,
             color: currProduct.color,
             size: currProduct.size,
+            sku: currProduct.sku,
           },
         ];
         sessionStorage.setItem("cart", JSON.stringify(newCartItems));
@@ -233,6 +243,9 @@ const ProductDetails = () => {
               setSelectedColors={setSelectedColor}
               selectedColors={selectedColor}
               allowMoreSelections={false}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignoreS
+              setSelectedVariantIndex={setSelectedVariantIndex}
             />
             <ShoeSizeSelector
               setSelectedShoeSizes={setSelectedSize}

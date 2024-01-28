@@ -44,7 +44,6 @@ export async function validateAccount(token: string | undefined | null) {
   return data;
 }
 
-
 export async function loginUser(userData: object) {
   const response = await fetch(`${apiUrl}/customers/login`, {
     method: "POST",
@@ -52,6 +51,24 @@ export async function loginUser(userData: object) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(userData),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.log(data.error);
+    return data.error;
+  }
+
+  return data;
+}
+
+export async function deleteUser(userId: string) {
+  const response = await fetch(`${apiUrl}/customers/${userId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 
   const data = await response.json();
