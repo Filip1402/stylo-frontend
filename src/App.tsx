@@ -27,7 +27,7 @@ function App() {
           <Route path="/kontakt" element={<Contact />} />
           <Route path="/unesi-adresu" element={<EnterAddress />} />
           <Route path="/success" element={<PaymentSuccess />} />
-          <Route path="/failure" element={<PaymentFailure />} />
+          <Route path="/cancel" element={<PaymentFailure />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
