@@ -5,7 +5,7 @@ export async function getLayout() {
   const data = await response.json();
 
   if (!response.ok) {
-    console.log(data.error);
+    // console.log(data.error);
     return data.error;
   }
   return data;
@@ -16,10 +16,10 @@ export async function getHomepage() {
   const data = await response.json();
 
   if (!response.ok) {
-    console.log(data.error);
+    // console.log(data.error);
     return data.error;
   }
-  console.log(data);
+  //console.log(data);
 
   return data;
 }
@@ -29,10 +29,10 @@ export async function getProduct(id: string) {
   const data = await response.json();
 
   if (!response.ok) {
-    console.log(data.error);
+    // console.log(data.error);
     return data.error;
   } else {
-    console.log(data);
+    //console.log(data);
   }
   return data;
 }
@@ -62,14 +62,14 @@ export async function getFilteredProducts(
   }
   const response = await fetch(url);
 
-  console.log("Moj url izgleda ovak", url);
+  // console.log("Moj url izgleda ovak", url);
   const data = await response.json();
 
   if (!response.ok) {
-    console.log(data.error);
+    // console.log(data.error);
     return data.error;
   } else {
-    console.log(data);
+    // console.log(data);
   }
 
   return data;

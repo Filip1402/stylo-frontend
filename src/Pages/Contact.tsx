@@ -100,7 +100,7 @@ const Contact = () => {
         );
         notifySuccess("Podrška uspješno kontaktirana!");
       } catch (err) {
-        console.log("Doslo je do pogreske");
+        // console.log("Doslo je do pogreske");
         notifyFailure("Došlo je do pogreške");
       }
     }

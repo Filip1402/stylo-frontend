@@ -11,10 +11,10 @@ export async function redirectToStripe(cartData: object) {
   const data = await response.json();
 
   if (!response.ok) {
-    console.log(data.error);
+    // console.log(data.error);
     return data.error;
   } else {
-    console.log(data);
+    //console.log(data);
   }
   return data;
 }

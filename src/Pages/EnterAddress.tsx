@@ -27,7 +27,7 @@ const EnterAddress = () => {
   const fetchData = async () => {
     try {
       const transformedCartItems = transformCartItems(cartItems);
-      console.log("Transformirani podaci su", transformedCartItems);
+      // console.log("Transformirani podaci su", transformedCartItems);
       const response = await redirectToStripe(transformedCartItems);
       setStripeUrl(response.stripe_url);
     } catch (error) {
@@ -51,7 +51,7 @@ const EnterAddress = () => {
     const isValid = validateForm();
 
     if (isValid) {
-      console.log("Url je", stripeUrl);
+      // console.log("Url je", stripeUrl);
       if (stripeUrl) {
         localStorage.setItem("addressData", JSON.stringify(addressData));
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

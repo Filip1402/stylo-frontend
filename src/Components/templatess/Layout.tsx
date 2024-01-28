@@ -1,9 +1,9 @@
 import { Outlet } from "react-router";
-import Header from "./Components/molecules/Header";
-import Footer from "./Components/atoms/Footer";
+import Header from "../organisms/Header";
+import Footer from "../molecules/Footer";
 import { useEffect, useState } from "react";
-import { getLayout } from "./api/products";
-import { LayoutData } from "./common/types";
+import { getLayout } from "../../api/products";
+import { LayoutData } from "../../common/types";
 
 const Layout = () => {
   const [layoutData, setLayoutData] = useState<LayoutData | null>(null);
